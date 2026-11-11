@@ -1,19 +1,19 @@
 /*
  * Stdio ↔ Streamable HTTP bridge between MCP clients that only speak stdio
- * (Claude Desktop) and Mailspring's MCP server.
+ * (Claude Desktop) and MailAr's MCP server.
  *
- * Claude Desktop runs this script with Mailspring's own Electron binary under
+ * Claude Desktop runs this script with MailAr's own Electron binary under
  * ELECTRON_RUN_AS_NODE=1, so the integration works on machines with no Node.js
  * installed. The script therefore depends on nothing but Node built-ins and is
  * plain CommonJS: Node executes it directly, and it is never loaded through
- * Mailspring's TypeScript compile hook.
+ * MailAr's TypeScript compile hook.
  *
- * Usage: mcp-stdio-bridge.js --config-dir <Mailspring config directory>
+ * Usage: mcp-stdio-bridge.js --config-dir <MailAr config directory>
  *
- * The port and bearer token are read from Mailspring's config.json on every
+ * The port and bearer token are read from MailAr's config.json on every
  * request, so regenerating the token or changing the port never leaves the
  * client with stale settings, and the token never has to be written into the
- * client's config file. When Mailspring restarts, its server forgets the HTTP
+ * client's config file. When MailAr restarts, its server forgets the HTTP
  * session; the bridge re-runs the initialize handshake and retries instead of
  * surfacing "Invalid or missing session" on every call until the client is
  * restarted.
@@ -25,9 +25,9 @@ const path = require('path');
 const DEFAULT_PORT = 2587;
 const HOST = '127.0.0.1';
 
-// How long the initial `initialize` keeps retrying while Mailspring isn't
+// How long the initial `initialize` keeps retrying while MailAr isn't
 // listening. Covers Claude Desktop launching at login a few seconds before
-// Mailspring's MCP server is up.
+// MailAr's MCP server is up.
 const CONNECT_RETRY_MS = 1000;
 const CONNECT_RETRY_LIMIT = 20;
 
@@ -39,9 +39,9 @@ const JSON_RPC_SERVER_ERROR = -32000;
 const JSON_RPC_INVALID_REQUEST = -32600;
 
 const NOT_RUNNING_MESSAGE =
-  'Mailspring is not running, or its MCP server is disabled. Open Mailspring and check Preferences > MCP Server.';
+  'MailAr is not running, or its MCP server is disabled. Open MailAr and check Preferences > MCP Server.';
 const DISABLED_MESSAGE =
-  'The Mailspring MCP server is turned off. Enable it in Mailspring under Preferences > MCP Server.';
+  'The MailAr MCP server is turned off. Enable it in MailAr under Preferences > MCP Server.';
 
 // stderr is persisted by Claude Desktop, so never log more than a prefix of
 // client or server payloads.
@@ -68,7 +68,7 @@ function readServerSettings(configDir) {
   try {
     parsed = JSON.parse(fs.readFileSync(path.join(configDir, 'config.json'), 'utf8'));
   } catch (err) {
-    throw new Error(`Could not read Mailspring's config.json in ${configDir}: ${err.message}`);
+    throw new Error(`Could not read MailAr's config.json in ${configDir}: ${err.message}`);
   }
   const mcp = (parsed['*'] && parsed['*'].core && parsed['*'].core.mcp) || {};
   if (!mcp.enabled || !mcp.token) {
@@ -136,7 +136,7 @@ class Bridge {
     this.sessionId = null;
     this.protocolVersion = null;
     // The client's original initialize params, replayed when the server
-    // forgets our session (Mailspring restarted, or the server was toggled).
+    // forgets our session (MailAr restarted, or the server was toggled).
     this.initializeParams = null;
     this.reinitializing = null;
     this.reinitCount = 0;
@@ -180,7 +180,7 @@ class Bridge {
   }
 
   // The server answers a request whose session it no longer knows with a 404
-  // (MCP spec) or, from Mailspring's own routing, a 400 that names the session.
+  // (MCP spec) or, from MailAr's own routing, a 400 that names the session.
   isSessionLost(res) {
     if (res.status === 404) return true;
     return res.status === 400 && /session/i.test(res.body);
@@ -209,7 +209,7 @@ class Bridge {
         return await this.post(message);
       } catch (err) {
         if (!isConnectionError(err) || attempt >= CONNECT_RETRY_LIMIT) throw err;
-        if (attempt === 1) log('Mailspring MCP server is not reachable yet, waiting for it…');
+        if (attempt === 1) log('MailAr MCP server is not reachable yet, waiting for it…');
         await new Promise((r) => setTimeout(r, CONNECT_RETRY_MS));
       }
     }
@@ -225,7 +225,7 @@ class Bridge {
   }
 
   async _reinitialize() {
-    log('Session was lost (Mailspring restarted?) — re-initializing.');
+    log('Session was lost (MailAr restarted?) — re-initializing.');
     this.sessionId = null;
     this.protocolVersion = null;
     const id = `mailspring-bridge-reinit-${++this.reinitCount}`;
@@ -271,7 +271,7 @@ class Bridge {
           ? serverError.error
           : {
               code: JSON_RPC_SERVER_ERROR,
-              message: `Mailspring MCP server returned HTTP ${res.status}`,
+              message: `MailAr MCP server returned HTTP ${res.status}`,
             },
       });
       return;
@@ -290,7 +290,7 @@ class Bridge {
         id: message.id,
         error: {
           code: JSON_RPC_SERVER_ERROR,
-          message: 'No response from the Mailspring MCP server',
+          message: 'No response from the MailAr MCP server',
         },
       });
     }

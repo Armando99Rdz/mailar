@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { AccountStore } from './account-store';
 import CategoryStore from './category-store';
 import { Folder } from '../models/folder';
@@ -31,7 +31,7 @@ interface FolderProgress {
   scanProgress: number;
   bodyProgress: number;
 }
-class FolderSyncProgressStore extends MailspringStore {
+class FolderSyncProgressStore extends MailArStore {
   _triggerDebounced: () => void;
   _statesByAccount: { [accountId: string]: { [folderPath: string]: FolderProgress } } = {};
   _stateSummary = {
@@ -139,7 +139,7 @@ class FolderSyncProgressStore extends MailspringStore {
   }
 
   /**
-   * Returns true if Mailspring's local cache contains the entire list of available
+   * Returns true if MailAr's local cache contains the entire list of available
    * folders and labels.
    *
    * This will be true if any of the available folders have started syncing,

@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import * as Actions from '../actions';
 import { Message } from '../models/message';
 import { Thread } from '../models/thread';
@@ -13,7 +13,7 @@ import { DatabaseChangeRecord } from './database-change-record';
 
 const FolderNamesHiddenByDefault = ['spam', 'trash'];
 
-class _MessageStore extends MailspringStore {
+class _MessageStore extends MailArStore {
   FolderNamesHiddenByDefault = FolderNamesHiddenByDefault;
 
   _showingHiddenItems = false;
@@ -205,7 +205,7 @@ class _MessageStore extends MailspringStore {
   }
 
   _setWindowTitle() {
-    const title = 'Mailspring' + (this._thread ? ' · ' + this._thread.subject : '');
+    const title = 'MailAr' + (this._thread ? ' · ' + this._thread.subject : '');
     require('@electron/remote').getCurrentWindow().setTitle(title);
   }
 

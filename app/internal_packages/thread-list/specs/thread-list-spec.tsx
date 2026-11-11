@@ -10,7 +10,7 @@
 //   Account,
 //   DatabaseStore,
 //   WorkspaceStore,
-//   MailspringTestUtils,
+//   MailArTestUtils,
 //   AccountStore,
 //   ComponentRegistry,
 // } = require('mailspring-exports');
@@ -208,7 +208,7 @@
 //   const columns = [c1, c2, c3];
 
 //   beforeEach(function() {
-//     MailspringTestUtils.loadKeymap('internal_packages/thread-list/keymaps/thread-list');
+//     MailArTestUtils.loadKeymap('internal_packages/thread-list/keymaps/thread-list');
 //     spyOn(ThreadStore, '_onAccountChanged');
 //     spyOn(DatabaseStore, 'findAll').andCallFake(
 //       () =>

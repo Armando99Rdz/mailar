@@ -1,0 +1,300 @@
+// Shared by the light and dark themes. Colors come from @snow-* in each theme.
+
+html,
+body,
+mailspring-workspace,
+.sheet-container {
+  background: @snow-canvas;
+}
+
+mailspring-workspace {
+  // Wide rows stay one line; the extra pixels give the monogram room.
+  --thread-list-item-height-wide: 48px;
+}
+
+.sheet-container {
+  padding: 10px 12px 12px;
+  -webkit-app-region: drag;
+}
+
+.sheet {
+  background: @snow-card;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18), 0 0 0 1px @snow-line;
+  -webkit-app-region: no-drag;
+}
+
+// The canvas around the card drags the window. The rail sits in that canvas,
+// so its buttons have to opt out or the click is swallowed as a drag.
+.nav-rail,
+.nav-rail-item {
+  -webkit-app-region: no-drag;
+}
+
+.sheet-toolbar,
+.sheet-toolbar-container,
+.nav-rail-frame {
+  background: @snow-card;
+}
+
+.sheet-toolbar {
+  border-bottom: 1px solid @snow-line;
+}
+
+.flexbox-handle-horizontal div {
+  box-shadow: 0.5px 0 0 @snow-line;
+}
+
+// Folder rows read as quiet pills. Counts stay text, not a filled chip.
+.account-sidebar .outline-view {
+  .heading {
+    padding-left: 18px;
+    margin-top: 6px;
+  }
+
+  .item {
+    height: 30px;
+    margin: 1px 8px;
+    width: calc(100% - 16px);
+    border-radius: 8px;
+  }
+
+  .item-count-box.alt-count {
+    color: @text-color-subtle;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+
+.nav-rail .nav-rail-item {
+  border-radius: 10px;
+
+  &.active {
+    background: @snow-selected;
+    box-shadow: none;
+  }
+}
+
+.sheet-toolbar .btn-toolbar {
+  background: @snow-hover;
+  box-shadow: inset 0 0 0 0.5px @snow-line;
+}
+
+body .sheet-toolbar .item-compose.btn-toolbar {
+  background: @accent-primary;
+  color: #fff;
+  font-weight: @font-weight-semi-bold;
+  border-radius: 999px;
+  box-shadow: none;
+
+  img.content-mask {
+    background-color: #fff;
+  }
+
+  &:hover,
+  &:active {
+    background: darken(@accent-primary, 8%);
+    color: #fff;
+  }
+}
+
+.thread-search-bar {
+  background: @snow-hover;
+  box-shadow: inset 0 0 0 0.5px @snow-line;
+}
+
+.nylas-search-bar {
+  .menu .header-container {
+    height: 30px;
+
+    input {
+      height: 30px;
+      border-radius: 15px;
+      background: @snow-hover;
+      box-shadow: none;
+      border: 1px solid transparent;
+    }
+  }
+
+  .menu .content-container {
+    top: 32px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .search-accessory.search {
+    top: 7px;
+  }
+}
+
+body.is-blurred .search-bar .menu .header-container input,
+body.is-blurred .nylas-search-bar .menu .header-container input {
+  background: @snow-hover;
+  box-shadow: none;
+}
+
+.column-ThreadList {
+  .list-rows {
+    background: @snow-card;
+  }
+
+  .thread-list .list-item:not(.thread-list-reminder-item) {
+    background-color: transparent;
+    border-bottom: 1px solid @snow-line;
+  }
+
+  // Wide rows are a single line centered by the tabular flex layout.
+  // Narrow rows keep their own two-line line-height.
+  .thread-list.thread-list-wide .list-item {
+    line-height: normal;
+  }
+
+  .list-container .list-item:hover,
+  .list-container .list-item.focused,
+  .list-container .list-item.selected {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: calc(100% - 12px) calc(100% - 6px);
+    border-bottom-color: transparent;
+    color: @text-color;
+  }
+
+  .list-container .list-item:hover {
+    background-image: linear-gradient(@snow-hover, @snow-hover);
+  }
+
+  .list-container .list-item.focused,
+  .list-container .list-item.selected {
+    background-image: linear-gradient(@snow-selected, @snow-selected);
+  }
+
+  .thread-list .list-item.unread:not(.focused):not(.selected) {
+    background-color: transparent;
+  }
+
+  // Focused rows used to invert for a colored selection.
+  .thread-list .list-item.focused,
+  .thread-list.handler-split .list-item.selected {
+    color: @text-color;
+    -webkit-font-smoothing: auto;
+
+    .thread-icon,
+    .draft-icon,
+    .mail-important-icon,
+    .mail-label {
+      filter: none;
+    }
+
+    .mail-label {
+      background: fade(@text-color, 8%) !important;
+      color: @text-color !important;
+    }
+  }
+
+  .thread-list.handler-split .list-item.selected:hover .list-column-HoverActions {
+    .inner {
+      background-image: linear-gradient(
+        to right,
+        fade(@snow-selected, 0%) 0%,
+        @snow-selected 12%,
+        @snow-selected 100%
+      );
+    }
+
+    .action {
+      filter: none;
+    }
+  }
+
+  .list-tabular-item.keyboard-cursor {
+    border-left-color: fade(@text-color, 35%);
+  }
+
+  .participants {
+    font-size: @font-size-base;
+    font-weight: @font-weight-medium;
+  }
+
+  .details .snippet {
+    color: @text-color-very-subtle;
+  }
+}
+
+#message-list {
+  background: @snow-card;
+
+  .message-subject-wrap {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .message-subject {
+    font-size: 22px;
+    font-weight: @font-weight-semi-bold;
+    letter-spacing: -0.02em;
+  }
+
+  .message-item-wrap .message-item-white-wrap {
+    box-shadow: none;
+    border: 1px solid @snow-line;
+    border-radius: 12px;
+    background: @snow-card;
+  }
+
+  .footer-reply-area-wrap {
+    width: fit-content;
+    margin: 8px 16px 18px;
+    border: 1px solid @snow-line;
+    border-radius: 8px;
+    box-shadow: none;
+    background: @snow-hover;
+    color: @text-color-subtle;
+
+    .footer-reply-area {
+      padding: 6px 12px;
+    }
+  }
+}
+
+// The window is a macOS material. One frosted sheet sits on a clear canvas;
+// opaque column fills would hide the blur, so those stay clear.
+html:has(body.platform-darwin) {
+  background: transparent !important;
+}
+
+body.platform-darwin {
+  &,
+  & mailspring-workspace,
+  & .sheet-container {
+    background: transparent !important;
+  }
+
+  .sheet {
+    background: fade(@snow-card, 72%);
+  }
+
+  .sheet-toolbar,
+  .sheet-toolbar-container,
+  .nav-rail,
+  .nav-rail-frame,
+  .column-RootSidebar,
+  .account-sidebar,
+  .outline-view,
+  .column-ThreadList,
+  .column-ThreadList .list-rows,
+  .list-container .list-rows,
+  .thread-list {
+    background: transparent;
+  }
+
+  // The reading column stays solid. A translucent page washes out the subject
+  // and the controls that sit on it.
+  #message-list,
+  .message-subject-wrap,
+  .message-item-wrap .message-item-white-wrap {
+    background: @snow-card;
+  }
+}

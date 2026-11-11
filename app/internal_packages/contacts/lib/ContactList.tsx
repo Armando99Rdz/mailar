@@ -13,19 +13,19 @@ import {
 import { ContactsPerspective, Store } from './Store';
 import { writeContactsToTempVCF, importContactsFromPaths } from './VCFImportExport';
 import { ContactListContextMenu } from './ContactListContextMenu';
-import { displayNameForContact, initialsForContact } from './ContactDisplayName';
+import { displayNameForContact } from './ContactDisplayName';
 
 const ContactColumn = new ListTabular.Column({
   name: 'Item',
   flex: 1,
   resolver: (contact: Contact) => {
     const account = AccountStore.accountForId(contact.accountId);
-    const hue = Utils.hueForString(contact.email);
     return (
       <div className="contact-list-row">
-        <div className="contact-list-avatar" style={{ backgroundColor: `hsl(${hue}, 50%, 45%)` }}>
-          {initialsForContact(contact)}
-        </div>
+        <div
+          className="contact-list-avatar"
+          style={{ background: Utils.avatarGradient(contact.email) }}
+        />
         <div className="contact-list-name" dir="auto">
           {displayNameForContact(contact)}
         </div>

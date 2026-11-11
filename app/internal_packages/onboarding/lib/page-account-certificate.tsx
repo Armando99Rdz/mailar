@@ -178,7 +178,7 @@ export default class AccountCertificatePage extends React.Component<
 
     return (
       <div className="page account-setup AccountCertificatePage">
-        <h2>{localized("Mailspring can't verify this server's identity")}</h2>
+        <h2>{localized("MailAr can't verify this server's identity")}</h2>
         <FormErrorMessage
           message={errorMessage}
           log={errorLog}

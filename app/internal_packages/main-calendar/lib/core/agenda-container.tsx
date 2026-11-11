@@ -57,7 +57,7 @@ export class AgendaContainer extends React.Component<AgendaContainerProps, Agend
         readOnlyCalendarIds: new Set(calendars.filter((c) => c.readOnly).map((c) => c.id)),
       });
     });
-    // Titles mix in the theme's cached text colour, which MailspringCalendar only clears while
+    // Titles mix in the theme's cached text colour, which MailArCalendar only clears while
     // it is mounted, and it isn't while Mail shows the agenda.
     invalidateThemeTextColorCache();
     this._themeDisposable = AppEnv.themes.onDidChangeActiveThemes(() => {
@@ -71,7 +71,7 @@ export class AgendaContainer extends React.Component<AgendaContainerProps, Agend
     this._themeDisposable?.dispose();
   }
 
-  // Fails closed until calendars load, matching MailspringCalendar._isCalendarReadOnly.
+  // Fails closed until calendars load, matching MailArCalendar._isCalendarReadOnly.
   _isCalendarReadOnly = (calendarId: string) => {
     return !this.state.calendarsLoaded || this.state.readOnlyCalendarIds.has(calendarId);
   };

@@ -4,7 +4,7 @@ import {
   DraftEditingSession,
   localized,
   APIError,
-  MailspringAPIRequest,
+  MailArAPIRequest,
 } from 'mailspring-exports';
 import { MetadataComposerToggleButton } from 'mailspring-component-kit';
 import { PLUGIN_ID, PLUGIN_NAME } from './open-tracking-constants';
@@ -14,7 +14,7 @@ type Props = { draft: Message; session: DraftEditingSession };
 function errorMessage(error: Error) {
   if (
     error instanceof APIError &&
-    MailspringAPIRequest.TimeoutErrorCodes.includes(error.statusCode)
+    MailArAPIRequest.TimeoutErrorCodes.includes(error.statusCode)
   ) {
     return localized(
       `Open tracking does not work offline. Please re-enable when you come back online.`

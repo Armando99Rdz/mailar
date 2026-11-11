@@ -1,5 +1,5 @@
 import { Calendar } from '../src/flux/models/calendar';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 import * as CalendarDateUtils from '../src/calendar-date';
 
@@ -40,7 +40,7 @@ describe('an event held in the grid', function () {
   let cal: any;
 
   beforeEach(function () {
-    cal = new MailspringCalendar({} as any);
+    cal = new MailArCalendar({} as any);
     cal.state = {
       ...cal.state,
       calendarsLoaded: true,

@@ -1,7 +1,7 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { McpHttpServer } from './mcp-http-server';
 
-class McpServerManagerStore extends MailspringStore {
+class McpServerManagerStore extends MailArStore {
   private _server: McpHttpServer = new McpHttpServer();
   private _error: string | null = null;
   private _configDisposable: { dispose: () => void } | null = null;

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --text: #1d1d1f;
+        --secondary: rgba(0, 0, 0, 0.55);
+        --tertiary: rgba(0, 0, 0, 0.42);
+        --hover: rgba(0, 0, 0, 0.08);
+        --line: rgba(0, 0, 0, 0.12);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text: #f5f5f7;
+          --secondary: rgba(255, 255, 255, 0.62);
+          --tertiary: rgba(255, 255, 255, 0.46);
+          --hover: rgba(255, 255, 255, 0.12);
+          --line: rgba(255, 255, 255, 0.14);
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        visibility: hidden;
+        background: transparent;
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 12px;
+        -webkit-font-smoothing: antialiased;
+        user-select: none;
+        cursor: default;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        padding: 6px;
+      }
+      button {
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .list {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+      }
+      .list::-webkit-scrollbar {
+        width: 8px;
+      }
+      .list::-webkit-scrollbar-thumb {
+        background: var(--line);
+        border-radius: 8px;
+      }
+      .heading {
+        padding: 4px 10px 6px;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .empty,
+      .more {
+        padding: 8px 10px;
+        color: var(--secondary);
+        font-size: 11px;
+      }
+      .item,
+      .action {
+        display: flex;
+        width: 100%;
+        margin: 0;
+        padding: 6px 8px;
+        border: 0;
+        border-radius: 8px;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        outline: none;
+      }
+      .item {
+        align-items: center;
+        gap: 8px;
+      }
+      .item:hover,
+      .action:hover {
+        background: var(--hover);
+      }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #8e8e93;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        line-height: 32px;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+        flex-shrink: 0;
+      }
+      .copy {
+        min-width: 0;
+        flex: 1;
+      }
+      .top,
+      .who {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        min-width: 0;
+      }
+      .who {
+        flex: 1;
+      }
+      .name,
+      .email,
+      .subject,
+      .snippet {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .name {
+        flex-shrink: 1;
+        max-width: 46%;
+        color: #1d1d1f;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .email,
+      .when,
+      .snippet {
+        color: var(--secondary);
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.2;
+      }
+      .email {
+        min-width: 0;
+        flex: 1;
+      }
+      .when {
+        flex-shrink: 0;
+      }
+      .subject {
+        margin-top: 2px;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1.25;
+      }
+      .snippet {
+        margin-top: 1px;
+        color: var(--tertiary);
+        font-size: 10px;
+      }
+      @media (prefers-color-scheme: dark) {
+        .name {
+          color: #fff;
+        }
+      }
+      .footer {
+        flex-shrink: 0;
+        margin-top: 4px;
+        padding-top: 4px;
+        border-top: 1px solid var(--line);
+      }
+      .action {
+        font-size: 12px;
+        line-height: 1.3;
+        padding: 5px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading" id="heading"></div>
+    <div class="list" id="list"></div>
+    <div class="more" id="more" hidden></div>
+    <div class="footer" id="footer"></div>
+    <script>
+      const heading = document.getElementById('heading');
+      const list = document.getElementById('list');
+      const more = document.getElementById('more');
+      const footer = document.getElementById('footer');
+
+      function text(tag, className, value) {
+        const node = document.createElement(tag);
+        node.className = className;
+        node.textContent = value;
+        return node;
+      }
+
+      function action(label, type) {
+        const button = text('button', 'action', label);
+        button.type = 'button';
+        button.tabIndex = -1;
+        button.addEventListener('click', () => window.trayMenu.act({ type }));
+        return button;
+      }
+
+      function render(data) {
+        const labels = (data && data.labels) || {};
+        const messages = (data && data.messages) || [];
+        heading.textContent = labels.title || '';
+        list.textContent = '';
+        if (messages.length === 0) {
+          list.appendChild(text('div', 'empty', labels.empty || ''));
+        } else {
+          for (const message of messages) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.tabIndex = -1;
+            button.className = 'item';
+            const avatar = document.createElement('span');
+            avatar.className = 'avatar';
+            if (message.color) avatar.style.background = message.color;
+            const copy = document.createElement('div');
+            copy.className = 'copy';
+            const top = document.createElement('div');
+            top.className = 'top';
+            const who = document.createElement('div');
+            who.className = 'who';
+            who.appendChild(text('span', 'name', message.name || message.email || ''));
+            if (message.email) who.appendChild(text('span', 'email', message.email));
+            top.appendChild(who);
+            if (message.when) top.appendChild(text('span', 'when', message.when));
+            copy.appendChild(top);
+            if (message.subject) copy.appendChild(text('div', 'subject', message.subject));
+            if (message.snippet) copy.appendChild(text('div', 'snippet', message.snippet));
+            button.appendChild(avatar);
+            button.appendChild(copy);
+            button.addEventListener('click', () =>
+              window.trayMenu.act({ type: 'open-thread', threadId: message.threadId })
+            );
+            list.appendChild(button);
+          }
+        }
+        const moreLabel = (data && data.moreLabel) || '';
+        more.textContent = moreLabel;
+        more.hidden = !moreLabel;
+        footer.textContent = '';
+        footer.appendChild(action(labels.openInbox || '', 'open-inbox'));
+        footer.appendChild(action(labels.newMessage || '', 'new-message'));
+        footer.appendChild(action(labels.preferences || '', 'preferences'));
+        footer.appendChild(action(labels.quit || '', 'quit'));
+        document.body.style.visibility = 'visible';
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') window.trayMenu.act({ type: 'close' });
+      });
+
+      window.trayMenu.onData(render);
+    </script>
+  </body>
+</html>

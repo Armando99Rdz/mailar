@@ -25,7 +25,7 @@ Public: The Message model represents an email message or draft.
 Messages are a sub-object of threads. The content of a message === immutable (with the
 exception being drafts). A message may have a physical copy in more than one IMAP folder at
 once (a self-addressed message lives in both Inbox and Sent); `folders` lists every folder
-that currently holds a copy. Mailspring has no UI for moving || deleting individual messages;
+that currently holds a copy. MailAr has no UI for moving || deleting individual messages;
 those operations are performed on the message's thread.
 All messages are part of a thread, even if that thread has only one message.
 
@@ -454,7 +454,7 @@ export class Message extends ModelWithMetadata {
       this.to.length === 1 &&
       this.from.length === 1 &&
       this.to[0].email === this.from[0].email &&
-      (this.from[0].name || '').endsWith('via Mailspring');
+      (this.from[0].name || '').endsWith('via MailAr');
     const isDraftBeingDeleted = this.id.startsWith('deleted-');
 
     return isReminder || isDraftBeingDeleted;

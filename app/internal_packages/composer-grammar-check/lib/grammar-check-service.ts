@@ -1,4 +1,4 @@
-import { MailspringAPIRequest } from 'mailspring-exports';
+import { MailArAPIRequest } from 'mailspring-exports';
 
 export interface GrammarError {
   offset: number;
@@ -118,7 +118,7 @@ export class LanguageToolBackend implements GrammarCheckBackend {
 
     let data: LanguageToolResponse;
     try {
-      data = await MailspringAPIRequest.makeRequest({
+      data = await MailArAPIRequest.makeRequest({
         server: 'identity',
         method: 'POST',
         path: '/api/grammar/check',

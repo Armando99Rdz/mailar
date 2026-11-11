@@ -1,6 +1,6 @@
 import Rx from 'rx-lite';
 import React from 'react';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { FeatureUsedUpModal } from 'mailspring-component-kit';
 import * as Actions from '../actions';
 import { IdentityStore, EMPTY_FEATURE_USAGE, IIdentity } from './identity-store';
@@ -29,7 +29,7 @@ export interface FeatureLexicon {
  *
  * The final schema looks like (Feb 7, 2017):
  *
- * MailspringID = {
+ * MailArID = {
  *   ...
  *   "featureUsage": {
  *     "snooze": {
@@ -57,7 +57,7 @@ export interface FeatureLexicon {
  * Valid periods are:
  * 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'unlimited'
  */
-class _FeatureUsageStore extends MailspringStore {
+class _FeatureUsageStore extends MailArStore {
   _waitForModalClose = [];
   NoProAccessError = NoProAccessError;
   _disp: Rx.Disposable;
@@ -96,7 +96,7 @@ class _FeatureUsageStore extends MailspringStore {
           rechargeText = lexicon.rechargeTextAllTime;
         } else if (rechargeText.includes('%2$@')) {
           rechargeText = `${localized(
-            "You've used the %1$@ free uses of this feature included with Mailspring Basic."
+            "You've used the %1$@ free uses of this feature included with MailAr Basic."
           )} ${localized('Upgrade to Pro today!')}`;
         }
         rechargeText = rechargeText.replace('%1$@', `${featureData.quota}`);

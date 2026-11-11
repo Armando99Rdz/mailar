@@ -11,7 +11,7 @@ type RecoveryFileSystem = Pick<typeof fs, 'existsSync' | 'rmSync' | 'writeFileSy
 
 /**
  * Some Windows GPU driver combinations crash Chromium's renderer before the
- * first window ever paints, which leaves Mailspring as a tray icon with no UI
+ * first window ever paints, which leaves MailAr as a tray icon with no UI
  * and no way for the user to reach the setting that would fix it. When that
  * happens we record a marker in the config directory, relaunch, and start with
  * hardware acceleration disabled from then on.

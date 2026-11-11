@@ -9,7 +9,7 @@ import { Switch, RetinaImg, CopyButton } from 'mailspring-component-kit';
 import McpServerManager from './mcp-server-manager';
 import PreferencesMcpAccounts from './preferences-mcp-accounts';
 import PreferencesMcpAudit from './preferences-mcp-audit';
-import { writeMailspringClaudeDesktopEntry } from './claude-desktop-config';
+import { writeMailArClaudeDesktopEntry } from './claude-desktop-config';
 
 const execFileAsync = promisify(execFile);
 const CLAUDE_CODE_MCP_NAME = 'mailspring-mcp';
@@ -25,7 +25,7 @@ interface State {
   claudeStatus: string | null;
   codexStatus: string | null;
   claudeCodeStatus: string | null;
-  // Set true once the user has successfully added Mailspring to any AI tool;
+  // Set true once the user has successfully added MailAr to any AI tool;
   // reveals the "Try It!" example prompt beneath the Quick Setup buttons.
   tryItVisible: boolean;
 }
@@ -75,7 +75,7 @@ export default class PreferencesMcp extends React.Component<Record<string, never
 
   _tryItPrompt() {
     return localized(
-      'Read the threads in my inbox using Mailspring - what should I prioritize? Draft a reply to the most important message.'
+      'Read the threads in my inbox using MailAr - what should I prioritize? Draft a reply to the most important message.'
     );
   }
 
@@ -132,7 +132,7 @@ export default class PreferencesMcp extends React.Component<Record<string, never
 
   _onAddToClaudeDesktop = () => {
     try {
-      writeMailspringClaudeDesktopEntry();
+      writeMailArClaudeDesktopEntry();
       this.setState({ claudeStatus: localized('Added!'), tryItVisible: true });
       setTimeout(() => this.setState({ claudeStatus: null }), 3000);
     } catch (err) {
@@ -313,7 +313,7 @@ export default class PreferencesMcp extends React.Component<Record<string, never
                   <h6>{localized('Quick Setup')}</h6>
                   <p className="mcp-description">
                     {localized(
-                      "Add Mailspring to your AI tools with one click. This writes the connection details to each tool's config file."
+                      "Add MailAr to your AI tools with one click. This writes the connection details to each tool's config file."
                     )}
                   </p>
                   <div className="mcp-quick-setup">

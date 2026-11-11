@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { CalendarView } from './calendar-constants';
 
 export interface ViewNavigation {
@@ -16,7 +16,7 @@ export interface CalendarOptions {
 }
 
 /** Triggers only when something drawn changes; the actions are kept current without a redraw. */
-class CalendarHeaderStore extends MailspringStore {
+class CalendarHeaderStore extends MailArStore {
   _viewNavigation: ViewNavigation | null = null;
   _calendarOptions: CalendarOptions | null = null;
 

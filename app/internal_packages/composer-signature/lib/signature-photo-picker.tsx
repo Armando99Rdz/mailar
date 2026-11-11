@@ -1,6 +1,6 @@
 import React from 'react';
 import { webUtils } from 'electron';
-import { localized, MailspringAPIRequest, IdentityStore, Utils } from 'mailspring-exports';
+import { localized, MailArAPIRequest, IdentityStore, Utils } from 'mailspring-exports';
 import { RetinaImg, DropZone } from 'mailspring-component-kit';
 
 const MAX_IMAGE_RES = 250;
@@ -121,17 +121,17 @@ export default class SignaturePhotoPicker extends React.Component<
     // The server stores assets at `{identityId}/{filename}` and the public URL encodes
     // that key, so re-using a filename overwrites the previous upload in place — which
     // rewrites the image in every already-sent email and, for teams sharing one
-    // Mailspring ID, clobbers other people's uploads (every fresh install's default
+    // MailAr ID, clobbers other people's uploads (every fresh install's default
     // signature has the id `initial`). Each upload gets a unique name instead.
     const filename = `sig-${this.props.id}-${Utils.generateTempId().replace('local-', '')}.${ext}`;
     let link = null;
 
     try {
-      link = await MailspringAPIRequest.postStaticAsset({ filename, blob });
+      link = await MailArAPIRequest.postStaticAsset({ filename, blob });
     } catch (err) {
       AppEnv.showErrorDialog(
         localized(
-          `Sorry, we couldn't save your signature image to Mailspring's servers. Please try again.\n\n(%@)`,
+          `Sorry, we couldn't save your signature image to MailAr's servers. Please try again.\n\n(%@)`,
           err.toString()
         )
       );
@@ -210,7 +210,7 @@ export default class SignaturePhotoPicker extends React.Component<
               <option value="custom">{localized('Custom Image…')}</option>
             </select>
             {source === 'custom' &&
-              (isMailspringURL ? (
+              (isMailArURL ? (
                 <a
                   className="btn"
                   onClick={() => this.props.onChange({ target: { value: '', id: 'photoURL' } })}

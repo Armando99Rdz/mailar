@@ -11,7 +11,7 @@ const ben = new Contact({
   email: 'ben@mailspring.com',
 });
 const team = new Contact({
-  name: 'Mailspring Team',
+  name: 'MailAr Team',
   email: 'team@mailspring.com',
 });
 const edgehill = new Contact({

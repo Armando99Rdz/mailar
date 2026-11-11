@@ -19,15 +19,15 @@ let idNum = 0;
 const mailspringWebContents = new WeakSet<Electron.WebContents>();
 
 /**
- * True for the renderers of Mailspring's own windows. Other top-level windows (print
+ * True for the renderers of MailAr's own windows. Other top-level windows (print
  * preview, quick preview, "show original") display untrusted content and must not be
  * able to drive the main process.
  */
-export function isMailspringWindowContents(contents: Electron.WebContents) {
+export function isMailArWindowContents(contents: Electron.WebContents) {
   return mailspringWebContents.has(contents);
 }
 
-export interface MailspringWindowSettings {
+export interface MailArWindowSettings {
   frame?: boolean;
   title?: string;
   width?: number;
@@ -55,12 +55,12 @@ export interface MailspringWindowSettings {
   [key: string]: unknown;
 }
 
-export default class MailspringWindow extends EventEmitter {
+export default class MailArWindow extends EventEmitter {
   static includeShellLoadTime = true;
 
   public windowType: string;
   public browserWindow: BrowserWindow & {
-    loadSettings?: MailspringWindowSettings;
+    loadSettings?: MailArWindowSettings;
     loadSettingsChangedSinceGetURL?: boolean;
   } = null;
   public devMode: boolean;
@@ -77,7 +77,7 @@ export default class MailspringWindow extends EventEmitter {
 
   private isWindowClosing: boolean;
 
-  constructor(settings: MailspringWindowSettings = {}) {
+  constructor(settings: MailArWindowSettings = {}) {
     super();
 
     let frame, height, pathToOpen, resizable, title, width, autoHideMenuBar, titleBarStyle;
@@ -117,7 +117,7 @@ export default class MailspringWindow extends EventEmitter {
     type GetConstructorArgs<T> = T extends new (options: infer U) => any ? U : never;
     const browserWindowOptions: GetConstructorArgs<typeof BrowserWindow> = {
       show: false,
-      title: title || 'Mailspring',
+      title: title || 'MailAr',
       frame,
       width,
       height,
@@ -159,6 +159,15 @@ export default class MailspringWindow extends EventEmitter {
         }
       }
       browserWindowOptions.icon = WindowIconPath;
+    }
+
+    // The sheet sits on the system material. The canvas CSS is transparent on
+    // macOS so this blur shows in the margin and through the translucent card.
+    if (process.platform === 'darwin' && !this.isSpec) {
+      browserWindowOptions.transparent = true;
+      browserWindowOptions.vibrancy = 'under-window';
+      browserWindowOptions.visualEffectState = 'followWindow';
+      browserWindowOptions.backgroundColor = '#00000000';
     }
 
     this.browserWindow = new BrowserWindow(browserWindowOptions);
@@ -213,8 +222,8 @@ export default class MailspringWindow extends EventEmitter {
     }
 
     // Only send to the first non-spec window created
-    if (MailspringWindow.includeShellLoadTime && !this.isSpec) {
-      MailspringWindow.includeShellLoadTime = false;
+    if (MailArWindow.includeShellLoadTime && !this.isSpec) {
+      MailArWindow.includeShellLoadTime = false;
       if (loadSettings.shellLoadTime == null) {
         loadSettings.shellLoadTime = Date.now() - global.shellStartTime;
       }
@@ -255,7 +264,7 @@ export default class MailspringWindow extends EventEmitter {
     // When --background is requested on Wayland we must still show briefly to commit the
     // Wayland surface (otherwise show() silently fails). Once the window finishes
     // initializing (window:loaded) we hide it again so the net effect matches what the
-    // user asked for: Mailspring running silently in the background.
+    // user asked for: MailAr running silently in the background.
     if (isWaylandSession()) {
       this.browserWindow.webContents.once('did-finish-load', () => {
         if (!this.browserWindow.isDestroyed() && !this.browserWindow.isVisible()) {
@@ -285,7 +294,7 @@ export default class MailspringWindow extends EventEmitter {
     this.setLoadSettings({ ...this.browserWindow.loadSettings, ...newSettings });
   };
 
-  loadSettings(): MailspringWindowSettings {
+  loadSettings(): MailArWindowSettings {
     return this.browserWindow.loadSettings;
   }
 
@@ -325,7 +334,7 @@ export default class MailspringWindow extends EventEmitter {
 
       const isLastWindow = global.application.windowManager.getVisibleWindowCount() === 1;
       // The configuration value may be `undefined` when it has not been manually set to true in the preferences
-      // This check against false prevents that Mailspring is closed when configuring the first mail account
+      // This check against false prevents that MailAr is closed when configuring the first mail account
       const isTrayEnabled = global.application.config.get('core.workspace.systemTray') !== false;
       const runWithoutWindowsOpen = isTrayEnabled || process.platform === 'darwin';
 
@@ -394,7 +403,7 @@ export default class MailspringWindow extends EventEmitter {
       const chosen = dialog.showMessageBoxSync(this.browserWindow, {
         type: 'warning',
         buttons: ['Close', 'Keep Waiting'],
-        message: 'Mailspring is not responding',
+        message: 'MailAr is not responding',
         detail: 'Would you like to force close it or keep waiting?',
       });
       if (chosen === 0) {
@@ -439,7 +448,7 @@ export default class MailspringWindow extends EventEmitter {
         const chosen = dialog.showMessageBoxSync({
           type: 'warning',
           buttons: ['Close Window', 'Reload', 'Keep It Open'],
-          message: 'Mailspring has crashed',
+          message: 'MailAr has crashed',
           detail: 'Please report this issue to us at support@getmailspring.com.',
         });
         if (chosen === 0) {

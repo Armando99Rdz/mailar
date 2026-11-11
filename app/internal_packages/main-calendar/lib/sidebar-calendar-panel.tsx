@@ -143,7 +143,7 @@ export class SidebarCalendarPanel extends React.Component<
     AppEnv.removeUnloadCallback(this._onBeforeUnload);
   }
 
-  // Fails closed until calendars load, matching MailspringCalendar._isCalendarReadOnly.
+  // Fails closed until calendars load, matching MailArCalendar._isCalendarReadOnly.
   _isCalendarReadOnly(calendarId: string) {
     const { calendars, calendarsLoaded } = this.state;
     return !calendarsLoaded || !!calendars.find((c) => c.id === calendarId)?.readOnly;

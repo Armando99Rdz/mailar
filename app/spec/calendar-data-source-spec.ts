@@ -1,6 +1,6 @@
 // Import the function under test directly from the source file.
 // We use a relative path because the plugin is not registered in mailspring-exports.
-import { Event as MailspringEvent } from '../src/flux/models/event';
+import { Event as MailArEvent } from '../src/flux/models/event';
 import { Calendar } from '../src/flux/models/calendar';
 import {
   calendarAddress,
@@ -19,8 +19,8 @@ import { DatabaseStore } from 'mailspring-exports';
 import { formatCalendarDate, parseCalendarDate } from '../src/calendar-date';
 
 // All-day-ness comes from the ICS DATE type, never from duration.
-function makeEvent(ics: string, overrides: Partial<MailspringEvent> = {}): MailspringEvent {
-  return new MailspringEvent({
+function makeEvent(ics: string, overrides: Partial<MailArEvent> = {}): MailArEvent {
+  return new MailArEvent({
     id: 'event-1',
     accountId: 'account-1',
     calendarId: 'calendar-1',
@@ -50,7 +50,7 @@ function icsFor(dtstart: string, dtend: string, extra = ''): string {
 }
 
 /** Expand across the whole of 2026 and return the occurrences found */
-function expand(event: MailspringEvent) {
+function expand(event: MailArEvent) {
   return occurrencesForEvents([event], {
     startUnix: new Date(2026, 0, 1).getTime() / 1000,
     endUnix: new Date(2027, 0, 1).getTime() / 1000,
@@ -530,7 +530,7 @@ describe('focusedOccurrenceForIcsuid', function () {
   const NOW = unix('2026-06-15T12:00:00Z');
   const REF = { icsuid: 'uid@test', accountId: 'account-1' };
 
-  const stored = (event: MailspringEvent) =>
+  const stored = (event: MailArEvent) =>
     spyOn(DatabaseStore, 'findAll').andReturn({ where: () => Promise.resolve([event]) } as any);
 
   it('returns the occurrence the focus lands on, for a timed event', async function () {

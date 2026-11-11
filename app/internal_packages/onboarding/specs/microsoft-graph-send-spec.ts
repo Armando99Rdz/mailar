@@ -64,7 +64,7 @@ describe('Microsoft Graph sending', () => {
     expect(scopes).toContain('https://outlook.office.com/SMTP.Send');
   });
 
-  it('can sign in with only the permissions Mailspring asked for before Graph sending', () => {
+  it('can sign in with only the permissions MailAr asked for before Graph sending', () => {
     const scopes = scopesOf(buildO365AuthURL({ withGraphSend: false }));
     expect(scopes).not.toContain('Mail.ReadWrite');
     expect(scopes).not.toContain('Mail.Send');

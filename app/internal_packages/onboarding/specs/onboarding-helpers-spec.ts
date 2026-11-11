@@ -106,7 +106,7 @@ describe('expandAccountWithCommonSettings', function onboardingHelpersTests() {
     const account = await expandAccountWithCommonSettings(accountFor('user@proton.me'));
 
     // Autoconfig supplies connection settings, but it has no concept of a container
-    // folder, so that key still comes from the Mailspring provider table.
+    // folder, so that key still comes from the MailAr provider table.
     expect(account.settings.imap_host).toEqual(AUTOCONFIG_IMAP_HOST);
     expect(account.settings.smtp_host).toEqual(AUTOCONFIG_SMTP_HOST);
     expect(account.settings.container_folder).toEqual('Folders');

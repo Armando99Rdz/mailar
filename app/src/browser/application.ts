@@ -30,7 +30,7 @@ import SystemAccentWatcher from './system-accent-watcher';
 import SystemTrayManager from './system-tray-manager';
 import { DefaultClientHelper } from '../default-client-helper';
 import { developerToolsAvailable } from '../developer-tools';
-import MailspringProtocolHandler from './mailspring-protocol-handler';
+import MailArProtocolHandler from './mailspring-protocol-handler';
 import ConfigPersistenceManager from './config-persistence-manager';
 import moveToApplications from './move-to-applications';
 import { MailsyncProcess } from '../mailsync-process';
@@ -39,7 +39,7 @@ import { registerQuickpreviewIPCHandlers } from './quickpreview-ipc';
 import { registerLocalAIIPCHandlers } from './local-ai-service';
 import { registerViewSessionIPCHandlers } from './view-sessions';
 import { guardAuxiliaryWindowNavigation } from './auxiliary-window-guard';
-import { onFromMailspringWindows, handleFromMailspringWindows } from './trusted-ipc';
+import { onFromMailArWindows, handleFromMailArWindows } from './trusted-ipc';
 import {
   handleWindowsToastXMLProtocolAction,
   registerNotificationIPCHandlers,
@@ -86,7 +86,7 @@ export default class Application extends EventEmitter {
   configPersistenceManager: ConfigPersistenceManager;
   fileListCache: FileListCache;
   applicationMenu: ApplicationMenu;
-  mailspringProtocolHandler: MailspringProtocolHandler;
+  mailspringProtocolHandler: MailArProtocolHandler;
   windowManager: WindowManager;
   autoUpdateManager: AutoUpdateManager;
   systemAccentWatcher: SystemAccentWatcher;
@@ -113,7 +113,7 @@ export default class Application extends EventEmitter {
     this.safeMode = safeMode;
 
     this.fileListCache = new FileListCache();
-    this.mailspringProtocolHandler = new MailspringProtocolHandler({
+    this.mailspringProtocolHandler = new MailArProtocolHandler({
       configDirPath,
       resourcePath,
       safeMode,
@@ -127,13 +127,13 @@ export default class Application extends EventEmitter {
       let buttons = [localized('Quit')];
       if (err.toString().includes('ENOENT')) {
         message = localized(
-          `Mailspring could not find the mailsync process. If you're building Mailspring from source, make sure mailsync.tar.gz has been downloaded and unpacked in your working copy.`
+          `MailAr could not find the mailsync process. If you're building MailAr from source, make sure mailsync.tar.gz has been downloaded and unpacked in your working copy.`
         );
       } else if (err.toString().includes('spawn')) {
-        message = localized(`Mailspring could not spawn the mailsync process. %@`, err.toString());
+        message = localized(`MailAr could not spawn the mailsync process. %@`, err.toString());
       } else {
         message = localized(
-          `We encountered a problem with your local email database. %@\n\nCheck that no other copies of Mailspring are running and click Rebuild to reset your local cache.`,
+          `We encountered a problem with your local email database. %@\n\nCheck that no other copies of MailAr are running and click Rebuild to reset your local cache.`,
           err.toString()
         );
         buttons = [localized('Quit'), localized('Rebuild')];
@@ -311,7 +311,7 @@ export default class Application extends EventEmitter {
     if (!addedToDock && appPath.includes('/Applications/') && appPath.includes('.app/')) {
       const appBundlePath = appPath.split('.app/')[0];
       proc.exec(
-        `defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-type</key><string>file-tile</string><key>tile-data</key><dict><key>file-type</key><integer>41</integer><key>file-label</key><string>Mailspring</string><key>bundle-identifier</key><string>com.mailspring.mailspring</string><key>file-data</key><dict><key>_CFURLString</key><string>file://${appBundlePath}.app/</string><key>_CFURLStringType</key><integer>15</integer></dict></dict></dict>" && pkill "Dock"`
+        `defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-type</key><string>file-tile</string><key>tile-data</key><dict><key>file-type</key><integer>41</integer><key>file-label</key><string>MailAr</string><key>bundle-identifier</key><string>com.mailspring.mailspring</string><key>file-data</key><dict><key>_CFURLString</key><string>file://${appBundlePath}.app/</string><key>_CFURLStringType</key><integer>15</integer></dict></dict></dict>" && pkill "Dock"`
       );
       this.config.set('addedToDock', true);
     }
@@ -356,7 +356,7 @@ export default class Application extends EventEmitter {
     if (hasAccount) {
       this.windowManager.ensureWindow(WindowManager.MAIN_WINDOW, {}, behavior);
     } else {
-      const title = localized('Welcome to Mailspring');
+      const title = localized('Welcome to MailAr');
       this.windowManager.ensureWindow(WindowManager.ONBOARDING_WINDOW, { title }, behavior);
     }
   }
@@ -430,8 +430,8 @@ export default class Application extends EventEmitter {
       app.quit();
     });
 
-    this.on('application:inspect', ({ x, y, MailspringWindow }) => {
-      const win = MailspringWindow || this.windowManager.focusedWindow();
+    this.on('application:inspect', ({ x, y, MailArWindow }) => {
+      const win = MailArWindow || this.windowManager.focusedWindow();
       if (!win) {
         return;
       }
@@ -445,7 +445,7 @@ export default class Application extends EventEmitter {
         onboarding.focus();
       } else {
         this.windowManager.ensureWindow(WindowManager.ONBOARDING_WINDOW, {
-          title: localized('Welcome to Mailspring'),
+          title: localized('Welcome to MailAr'),
           windowProps: {},
         });
       }
@@ -632,11 +632,15 @@ export default class Application extends EventEmitter {
     });
 
     // System Tray
-    onFromMailspringWindows(ipcMain, 'update-system-tray', (event, iconPath, unreadString) => {
+    onFromMailArWindows(ipcMain, 'update-system-tray', (event, iconPath, unreadString) => {
       this.systemTrayManager.updateTraySettings(iconPath, unreadString);
     });
 
-    onFromMailspringWindows(ipcMain, 'set-badge-value', (event, value) => {
+    onFromMailArWindows(ipcMain, 'update-system-tray-messages', (event, messages) => {
+      this.systemTrayManager.updateRecentMessages(messages);
+    });
+
+    onFromMailArWindows(ipcMain, 'set-badge-value', (event, value) => {
       if (app.dock && app.dock.setBadge) {
         app.dock.setBadge(value);
       } else if (app.setBadgeCount) {
@@ -657,7 +661,7 @@ export default class Application extends EventEmitter {
       }
     });
 
-    onFromMailspringWindows(ipcMain, 'new-window', (event, options) => {
+    onFromMailArWindows(ipcMain, 'new-window', (event, options) => {
       const win = options.windowKey ? this.windowManager.get(options.windowKey) : null;
       if (win) {
         win.show();
@@ -671,13 +675,13 @@ export default class Application extends EventEmitter {
 
     let userResetTheme = false;
 
-    handleFromMailspringWindows(ipcMain, 'get-system-accent-color', () => {
+    handleFromMailArWindows(ipcMain, 'get-system-accent-color', () => {
       return this.systemAccentWatcher ? this.systemAccentWatcher.getCurrent() : null;
     });
 
     // Synchronous because ThemeManager needs the value during its constructor to
     // pick the initial ui-light / ui-dark variant without a flash.
-    onFromMailspringWindows(
+    onFromMailArWindows(
       ipcMain,
       'get-system-dark-mode-sync',
       (event: Electron.IpcMainEvent) => {
@@ -687,7 +691,7 @@ export default class Application extends EventEmitter {
       }
     );
 
-    onFromMailspringWindows(ipcMain, 'encountered-theme-error', (event, { message, detail }) => {
+    onFromMailArWindows(ipcMain, 'encountered-theme-error', (event, { message, detail }) => {
       if (userResetTheme) return;
 
       // showMessageBoxSync blocks the main process indefinitely in headless
@@ -704,7 +708,7 @@ export default class Application extends EventEmitter {
         defaultId: 0,
         message,
         detail: `${detail}\n\n${localized(
-          'Reset Theme and Restart restores the bundled automatic, light, and dark themes, clears cached theme styles, and restarts Mailspring. Your accounts, mail, plugins, and other settings are not changed.'
+          'Reset Theme and Restart restores the bundled automatic, light, and dark themes, clears cached theme styles, and restarts MailAr. Your accounts, mail, plugins, and other settings are not changed.'
         )}`,
       });
       if (buttonIndex === 0) {
@@ -721,7 +725,7 @@ export default class Application extends EventEmitter {
       }
     });
 
-    onFromMailspringWindows(ipcMain, 'inline-style-parse', (event, { html, key }) => {
+    onFromMailArWindows(ipcMain, 'inline-style-parse', (event, { html, key }) => {
       const juice = require('juice');
       let out = null;
       try {
@@ -759,7 +763,7 @@ export default class Application extends EventEmitter {
       event.preventDefault();
     });
 
-    onFromMailspringWindows(
+    onFromMailArWindows(
       ipcMain,
       'update-application-menu',
       (event, template, keystrokesByCommand) => {
@@ -770,12 +774,12 @@ export default class Application extends EventEmitter {
       }
     );
 
-    onFromMailspringWindows(ipcMain, 'command', (event, command, ...args) => {
+    onFromMailArWindows(ipcMain, 'command', (event, command, ...args) => {
       if (typeof command !== 'string' || !command.startsWith('application:')) return;
       this.emit(command, ...args);
     });
 
-    onFromMailspringWindows(ipcMain, 'window-command', (event, command, ...args) => {
+    onFromMailArWindows(ipcMain, 'window-command', (event, command, ...args) => {
       const win = BrowserWindow.fromWebContents(event.sender);
       if (!win) return;
       win.emit(command, ...args);
@@ -796,7 +800,7 @@ export default class Application extends EventEmitter {
     );
     const ALLOWED_DEVTOOLS_WEBCONTENTS_METHODS = new Set(['executeJavaScript']);
 
-    onFromMailspringWindows(ipcMain, 'call-window-method', (event, method, ...args) => {
+    onFromMailArWindows(ipcMain, 'call-window-method', (event, method, ...args) => {
       if (!ALLOWED_WINDOW_METHODS.has(method)) {
         console.error(`Method ${method} is not permitted on BrowserWindow!`);
         return;
@@ -810,7 +814,7 @@ export default class Application extends EventEmitter {
       win[method](...args);
     });
 
-    onFromMailspringWindows(
+    onFromMailArWindows(
       ipcMain,
       'call-devtools-webcontents-method',
       (event, method, ...args) => {
@@ -830,7 +834,7 @@ export default class Application extends EventEmitter {
       }
     );
 
-    onFromMailspringWindows(ipcMain, 'call-webcontents-method', (event, method, ...args) => {
+    onFromMailArWindows(ipcMain, 'call-webcontents-method', (event, method, ...args) => {
       if (!ALLOWED_WEBCONTENTS_METHODS.has(method)) {
         console.error(`Method ${method} is not permitted on WebContents!`);
         return;
@@ -842,17 +846,17 @@ export default class Application extends EventEmitter {
       event.sender[method](...args);
     });
 
-    onFromMailspringWindows(ipcMain, 'mailsync-bridge-rebroadcast-to-all', (event, ...args) => {
+    onFromMailArWindows(ipcMain, 'mailsync-bridge-rebroadcast-to-all', (event, ...args) => {
       const win = BrowserWindow.fromWebContents(event.sender);
       this.windowManager.sendToAllWindows('mailsync-bridge-message', { except: win }, ...args);
     });
 
-    onFromMailspringWindows(ipcMain, 'action-bridge-rebroadcast-to-all', (event, ...args) => {
+    onFromMailArWindows(ipcMain, 'action-bridge-rebroadcast-to-all', (event, ...args) => {
       const win = BrowserWindow.fromWebContents(event.sender);
       this.windowManager.sendToAllWindows('action-bridge-message', { except: win }, ...args);
     });
 
-    onFromMailspringWindows(ipcMain, 'action-bridge-rebroadcast-to-default', (event, ...args) => {
+    onFromMailArWindows(ipcMain, 'action-bridge-rebroadcast-to-default', (event, ...args) => {
       const mainWindow = this.windowManager.get(WindowManager.MAIN_WINDOW);
       if (!mainWindow || !mainWindow.browserWindow.webContents) {
         return;
@@ -863,17 +867,17 @@ export default class Application extends EventEmitter {
       mainWindow.browserWindow.webContents.send('action-bridge-message', ...args);
     });
 
-    onFromMailspringWindows(ipcMain, 'write-image-to-clipboard', (event, dataURL) => {
+    onFromMailArWindows(ipcMain, 'write-image-to-clipboard', (event, dataURL) => {
       // This can't be done from the renderer due to https://github.com/electron/electron/issues/8151
       const png = nativeImage.createFromDataURL(dataURL).toPNG();
       clipboard.write([new ClipboardItem({ 'image/png': new Blob([png], { type: 'image/png' }) })]);
     });
 
-    onFromMailspringWindows(ipcMain, 'write-text-to-selection-clipboard', (event, selectedText) => {
+    onFromMailArWindows(ipcMain, 'write-text-to-selection-clipboard', (event, selectedText) => {
       if (clipboard.selection) clipboard.selection.writeText(selectedText);
     });
 
-    onFromMailspringWindows(ipcMain, 'account-setup-successful', () => {
+    onFromMailArWindows(ipcMain, 'account-setup-successful', () => {
       this.windowManager.ensureWindow(WindowManager.MAIN_WINDOW);
       const mainWindow = this.windowManager.get(WindowManager.MAIN_WINDOW);
       const onboarding = this.windowManager.get(WindowManager.ONBOARDING_WINDOW);
@@ -892,7 +896,7 @@ export default class Application extends EventEmitter {
       }
     });
 
-    onFromMailspringWindows(ipcMain, 'run-in-window', (event, params) => {
+    onFromMailArWindows(ipcMain, 'run-in-window', (event, params) => {
       const sourceWindow = BrowserWindow.fromWebContents(event.sender);
       this._sourceWindows[params.taskId] = sourceWindow;
 
@@ -910,13 +914,13 @@ export default class Application extends EventEmitter {
       targetWindow.browserWindow.webContents.send('run-in-window', params);
     });
 
-    onFromMailspringWindows(ipcMain, 'remote-run-results', (event, params) => {
+    onFromMailArWindows(ipcMain, 'remote-run-results', (event, params) => {
       const sourceWindow = this._sourceWindows[params.taskId];
       sourceWindow.webContents.send('remote-run-results', params);
       delete this._sourceWindows[params.taskId];
     });
 
-    onFromMailspringWindows(
+    onFromMailArWindows(
       ipcMain,
       'report-error',
       (event, params: { extra?: string; errorJSON?: string } = {}) => {
@@ -971,7 +975,7 @@ export default class Application extends EventEmitter {
       }
     );
 
-    onFromMailspringWindows(ipcMain, 'resize-window', (event, params) => {
+    onFromMailArWindows(ipcMain, 'resize-window', (event, params) => {
       const sourceWindow = BrowserWindow.fromWebContents(event.sender);
       if (!sourceWindow) return;
       sourceWindow.setSize(params.width, params.height);
@@ -1042,16 +1046,16 @@ export default class Application extends EventEmitter {
   // Public: Executes the given command on the given window.
   //
   // command - The string representing the command.
-  // MailspringWindow - The {MailspringWindow} to send the command to.
+  // MailArWindow - The {MailArWindow} to send the command to.
   // args - The optional arguments to pass along.
-  sendCommandToWindow = (command, MailspringWindow, ...args) => {
+  sendCommandToWindow = (command, MailArWindow, ...args) => {
     console.log('sendCommandToWindow');
     console.log(command);
     if (this.emit(command, ...args)) {
       return;
     }
-    if (MailspringWindow) {
-      MailspringWindow.sendCommand(command, ...args);
+    if (MailArWindow) {
+      MailArWindow.sendCommand(command, ...args);
     } else {
       this.sendCommandToFirstResponder(command);
     }
@@ -1141,7 +1145,7 @@ export default class Application extends EventEmitter {
     }
   }
 
-  // Opens up a new {MailspringWindow} to run specs within.
+  // Opens up a new {MailArWindow} to run specs within.
   //
   // options -
   //   :exitWhenDone - A Boolean that, if true, will close the window upon

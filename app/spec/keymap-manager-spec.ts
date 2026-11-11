@@ -11,7 +11,7 @@ describe('KeymapManager', function () {
   let trap: InstanceType<typeof mousetrap>;
 
   beforeEach(function () {
-    // Isolate registrations from AppEnv.keymaps while retaining Mailspring's real
+    // Isolate registrations from AppEnv.keymaps while retaining MailAr's real
     // stopCallback: a bare mousetrap.bind would steal the app's global bindings.
     trap = new mousetrap(document.body);
     spyOn(mousetrap, 'bind').andCallFake((keys, callback) => trap.bind(keys, callback));

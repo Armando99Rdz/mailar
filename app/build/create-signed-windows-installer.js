@@ -3,7 +3,7 @@
  * Squirrel generates Update.exe, squirrel.exe and mailspring_ExecutionStub.exe
  * while building the installer, after the workflow signs the app directory and
  * before it signs the installer. Unsigned, the stub -- which Squirrel installs
- * as %LocalAppData%\Mailspring\mailspring.exe -- trips Smart App Control, so
+ * as %LocalAppData%\MailAr\mailspring.exe -- trips Smart App Control, so
  * pass --signWithParams and let Squirrel sign them itself.
  */
 const fs = require('fs');
@@ -85,14 +85,14 @@ const config = {
   appDirectory: path.join(appDir, 'dist', 'mailspring-win32-x64'),
   loadingGif: path.join(appDir, 'build', 'resources', 'win', 'loading.gif'),
   iconUrl: 'http://mailspring-builds.s3.amazonaws.com/assets/mailspring-square.ico',
-  description: 'Mailspring',
+  description: 'MailAr',
   version: version,
-  title: 'Mailspring',
+  title: 'MailAr',
   authors: 'Foundry 376, LLC',
   setupIcon: path.join(appDir, 'build', 'resources', 'win', 'mailspring-square.ico'),
-  setupExe: 'MailspringSetup.exe',
+  setupExe: 'MailArSetup.exe',
   exe: 'mailspring.exe',
-  name: 'Mailspring',
+  name: 'MailAr',
 };
 
 if (signWithParams) {

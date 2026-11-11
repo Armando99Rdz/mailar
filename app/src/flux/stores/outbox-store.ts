@@ -1,9 +1,9 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { SendDraftTask } from '../tasks/send-draft-task';
 import { SyncbackDraftTask } from '../tasks/syncback-draft-task';
 import TaskQueue from './task-queue';
 
-class OutboxStore extends MailspringStore {
+class OutboxStore extends MailArStore {
   _tasks = [];
 
   constructor() {

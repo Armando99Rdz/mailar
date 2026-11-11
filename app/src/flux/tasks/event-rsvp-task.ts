@@ -80,7 +80,7 @@ export class EventRSVPTask extends Task {
     root.updatePropertyWithValue('method', 'REPLY');
     // Google drops a REPLY that still carries its own Calendar PRODID; the attendee's
     // PARTSTAT stays needsAction.
-    root.updatePropertyWithValue('prodid', '-//Mailspring//Calendar//EN');
+    root.updatePropertyWithValue('prodid', '-//MailAr//Calendar//EN');
 
     // Per RFC 5546 section 3.2.3 a REPLY names exactly one ATTENDEE - the person replying.
     // Every VEVENT has to be cleaned, not just the master: an invitation to a series carries

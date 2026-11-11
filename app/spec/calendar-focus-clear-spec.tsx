@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarEvent } from '../internal_packages/main-calendar/lib/core/calendar-event';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 
@@ -26,7 +26,7 @@ const occurrence: TimedOccurrence = {
 
 describe('focusing a calendar event', function () {
   it('clears focusedEvent once the event has announced itself', function () {
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     calendar.setState = (update: object) => Object.assign(calendar.state, update);
     calendar.state.focusedEvent = { id: occurrence.id, start: START };
 

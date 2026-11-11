@@ -1,8 +1,8 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 
 const EMAIL_RENDER_MODE_KEY = 'core.reading.emailRenderMode';
 
-class EmailFrameStylesStore extends MailspringStore {
+class EmailFrameStylesStore extends MailArStore {
   _styles?: string;
   _mutationObserver: MutationObserver;
   _configDisposable?: { dispose: () => void };

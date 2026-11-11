@@ -544,7 +544,7 @@ describe('DraftFactory', function draftFactory() {
         );
         expect(
           this.model.body.indexOf(
-            'Cc: mg@mailspring.com, Mailspring Test &lt;tester@mailspring.com&gt;'
+            'Cc: mg@mailspring.com, MailAr Test &lt;tester@mailspring.com&gt;'
           ) > 0
         ).toBe(true);
       });

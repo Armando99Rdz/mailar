@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 
 import {
   localized,
@@ -13,7 +13,7 @@ import { markUnreadOrResurfaceThreads, moveThreads, snoozedUntilMessage } from '
 import { PLUGIN_ID } from './snooze-constants';
 import * as SnoozeActions from './snooze-actions';
 
-class _SnoozeStore extends MailspringStore {
+class _SnoozeStore extends MailArStore {
   unsubscribers: Array<() => void>;
 
   activate() {
@@ -38,7 +38,7 @@ class _SnoozeStore extends MailspringStore {
       await FeatureUsageStore.markUsedOrUpgrade('snooze', {
         headerText: localized('All Snoozes Used'),
         rechargeText: `${localized(
-          `You can snooze %1$@ emails each %2$@ with Mailspring Basic.`
+          `You can snooze %1$@ emails each %2$@ with MailAr Basic.`
         )} ${localized('Upgrade to Pro today!')}`,
         iconUrl: 'mailspring://thread-snooze/assets/ic-snooze-modal@2x.png',
       });

@@ -8,7 +8,7 @@ import type { SystemModel } from './local-model';
  * Talks to `mailspring-fm`, the Swift helper that reaches Apple's on-device model (protocol in
  * app/native/mailspring-fm/Sources/mailspring-fm/main.swift).
  *
- * The helper is its own process, so a crash in the framework never takes down Mailspring; it
+ * The helper is its own process, so a crash in the framework never takes down MailAr; it
  * is started on first use and stopped after a few idle minutes. Packaged Apple-silicon builds
  * ship it in Resources; other builds don't have it, and the system model reports
  * `helperMissing`.

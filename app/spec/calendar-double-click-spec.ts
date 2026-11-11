@@ -1,4 +1,4 @@
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarEventContextMenu } from '../internal_packages/main-calendar/lib/core/calendar-event-context-menu';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 
@@ -18,7 +18,7 @@ const weekly = { ...occurrence, isRecurring: true } as TimedOccurrence;
 
 describe('double-clicking a calendar event', function () {
   function loadedCalendar() {
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     calendar.state = { ...calendar.state, calendarsLoaded: true };
     calendar.setState = (update: object) => Object.assign(calendar.state, update);
     spyOn(AppEnv.config, 'set');
@@ -46,7 +46,7 @@ describe('double-clicking a calendar event', function () {
 
 describe("the context menu's open item", function () {
   function calendarWith(readOnlyCalendarIds: string[]) {
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     calendar.state = {
       ...calendar.state,
       calendarsLoaded: true,

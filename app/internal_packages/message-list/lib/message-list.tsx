@@ -121,7 +121,6 @@ class MessageList extends React.Component<Record<string, unknown>, MessageListSt
       'core:forward': () => this._onForward(),
       'core:forward-as-attachment': () => this._onForwardAsAttachment(),
       'core:save-as-eml': () => this._onSaveAsEml(),
-      'core:print-thread': () => this._onPrintThread(),
       'core:messages-page-up': () => this._onScrollByPage(-1),
       'core:messages-page-down': () => this._onScrollByPage(1),
     };
@@ -226,11 +225,6 @@ class MessageList extends React.Component<Record<string, unknown>, MessageListSt
 
   _onToggleAllMessagesExpanded = () => {
     Actions.toggleAllMessagesExpanded();
-  };
-
-  _onPrintThread = () => {
-    const node = ReactDOM.findDOMNode(this) as HTMLElement;
-    Actions.printThread(this.state.currentThread, node.innerHTML);
   };
 
   _onPopThreadIn = () => {
@@ -544,7 +538,6 @@ class MessageList extends React.Component<Record<string, unknown>, MessageListSt
         <SubjectLineIcons
           canCollapse={this.state.canCollapse}
           hasCollapsedItems={this.state.hasCollapsedItems}
-          onPrint={this._onPrintThread}
           onPopIn={this._onPopThreadIn}
           onPopOut={this._onPopoutThread}
           onToggleAllExpanded={this._onToggleAllMessagesExpanded}

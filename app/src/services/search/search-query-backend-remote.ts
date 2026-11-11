@@ -13,7 +13,7 @@ import DateUtils from '../../date-utils';
 import { imapUtf7 } from '../../utils/imap-utf7';
 
 /*
- * A `search-remote` request for the sync engine (Mailspring-Sync SearchWorker): `criteria`
+ * A `search-remote` request for the sync engine (MailAr-Sync SearchWorker): `criteria`
  * is the engine's IMAP SEARCH grammar, `gmailRaw` a Gmail web search string run as X-GM-RAW,
  * and `folderIds` the folders to search instead of the engine's default.
  */

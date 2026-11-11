@@ -3,7 +3,7 @@
 // `@mailspring/view`, applies the host theme to the document, then mounts the default export.
 (function () {
   const moduleGlobals = Object.assign({}, window.__mailspringViewModuleGlobals, {
-    '@mailspring/view': 'MailspringView',
+    '@mailspring/view': 'MailArView',
   });
 
   function viewRequire(specifier) {
@@ -22,7 +22,7 @@
 
   // Theme: the host pushes a `Theme` (lib/theme-tokens.ts). Its colors become `--ms-<key>`
   // variables, and the Tailwind block below exposes them as `ms-<key>` colors (`bg-ms-bg`,
-  // `text-ms-muted`, …). `dark:` follows the Mailspring theme rather than the OS, because the
+  // `text-ms-muted`, …). `dark:` follows the MailAr theme rather than the OS, because the
   // two disagree whenever the user picks a theme by hand.
   function applyTheme(theme) {
     if (!theme || !theme.colors) return;

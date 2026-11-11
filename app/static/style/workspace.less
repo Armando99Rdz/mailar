@@ -17,6 +17,20 @@ body {
   touch-action: manipulation;
 }
 
+// SF is the system face. The class is only present on macOS, so Windows and
+// Linux keep the face compiled from @font-family. Font Awesome draws the
+// composer toolbar glyphs; it has to keep its own face.
+body.platform-darwin,
+body.platform-darwin *:not(.fa) {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+body.platform-darwin .fa,
+body.platform-darwin .fa:before,
+body.platform-darwin .fa:after {
+  font-family: FontAwesome !important;
+}
+
 mailspring-workspace {
   display: block;
   height: 100%;

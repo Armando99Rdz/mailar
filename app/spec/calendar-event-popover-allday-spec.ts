@@ -1,6 +1,6 @@
 import { Actions, DatabaseStore, SyncbackEventTask } from 'mailspring-exports';
 import moment from 'moment';
-import { Event as MailspringEvent } from '../src/flux/models/event';
+import { Event as MailArEvent } from '../src/flux/models/event';
 import { CalendarEventPopover } from '../internal_packages/main-calendar/lib/core/calendar-event-popover';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 
@@ -22,7 +22,7 @@ END:VEVENT
 END:VCALENDAR`;
 
 function makeEvent() {
-  return new MailspringEvent({
+  return new MailArEvent({
     id: 'event-1',
     accountId: 'account-1',
     calendarId: 'calendar-1',
@@ -52,7 +52,7 @@ function makeOccurrence(): TimedOccurrence {
   } as TimedOccurrence;
 }
 
-async function openEditor(event: MailspringEvent) {
+async function openEditor(event: MailArEvent) {
   const popover: any = new CalendarEventPopover({
     event: makeOccurrence(),
     onEdit: () => {},

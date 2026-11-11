@@ -41,7 +41,7 @@ describe('lastJSONResponse', function () {
 
 describe('lastLoggedException', function () {
   const block = (details: string) =>
-    `[critical] \n***\n*** Mailspring Sync \n*** An exception occurred during program execution: \n*** ${details}\n***\n`;
+    `[critical] \n***\n*** MailAr Sync \n*** An exception occurred during program execution: \n*** ${details}\n***\n`;
 
   it('keeps only the exception mailsync logged last', function () {
     const stderr = block('{"key":"ErrorAuthentication"}') + block('A segmentation fault (SIGSEGV)');

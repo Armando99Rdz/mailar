@@ -2,7 +2,7 @@ import { Notification, IpcMain, IpcMainInvokeEvent, nativeImage } from 'electron
 import path from 'path';
 import { UrlWithParsedQuery } from 'url';
 import { ICON_PATHS } from '../utils/xdg-paths';
-import { handleFromMailspringWindows } from './trusted-ipc';
+import { handleFromMailArWindows } from './trusted-ipc';
 
 interface NotificationOptions {
   id: string;
@@ -238,8 +238,8 @@ const closeNotification = (event: IpcMainInvokeEvent, id: string): void => {
  * Called from application.ts during startup.
  */
 export function registerNotificationIPCHandlers(ipcMain: IpcMain) {
-  handleFromMailspringWindows(ipcMain, 'notification:display', displayNotification);
-  handleFromMailspringWindows(ipcMain, 'notification:close', closeNotification);
+  handleFromMailArWindows(ipcMain, 'notification:display', displayNotification);
+  handleFromMailArWindows(ipcMain, 'notification:close', closeNotification);
 }
 
 export function handleWindowsToastXMLProtocolAction(parts: UrlWithParsedQuery) {

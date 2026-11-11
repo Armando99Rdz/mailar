@@ -267,7 +267,7 @@ function buildPackagerOptions() {
     appVersion: packageJSON.version,
     platform,
     protocols: [
-      { name: 'Mailspring Protocol', schemes: ['mailspring'] },
+      { name: 'MailAr Protocol', schemes: ['mailspring'] },
       { name: 'Mailto Protocol', schemes: ['mailto'] },
     ],
     dir: appDir,
@@ -279,7 +279,7 @@ function buildPackagerOptions() {
       win32: path.resolve(appDir, 'build', 'resources', 'win', 'mailspring-square.ico'),
       linux: undefined,
     }[platform],
-    name: { darwin: 'Mailspring', win32: 'Mailspring', linux: 'mailspring' }[platform],
+    name: { darwin: 'MailAr', win32: 'MailAr', linux: 'mailspring' }[platform],
     appCopyright: `Copyright (C) 2014-${new Date().getFullYear()} Foundry 376, LLC. All rights reserved.`,
     derefSymlinks: false,
     asar: {
@@ -377,7 +377,7 @@ function buildPackagerOptions() {
             // cannot match to a profile scoped to that binary.
             // Note: electron-osx-sign passes the .app bundle path (not the
             // inner executable path) when signing the top-level app bundle.
-            const isMainExecutable = filePath.endsWith('/Mailspring.app');
+            const isMainExecutable = filePath.endsWith('/MailAr.app');
             return {
               hardenedRuntime: true,
               entitlements: path.resolve(
@@ -401,9 +401,9 @@ function buildPackagerOptions() {
       : undefined,
     win32metadata: {
       CompanyName: 'Foundry 376, LLC',
-      FileDescription: 'Mailspring',
+      FileDescription: 'MailAr',
       LegalCopyright: `Copyright (C) 2014-${new Date().getFullYear()} Foundry 376, LLC. All rights reserved.`,
-      ProductName: 'Mailspring',
+      ProductName: 'MailAr',
     },
     // NOTE: The following plist keys can NOT be set in the extra.plist since
     // they are manually overridden by electron-packager based on this config:
@@ -450,14 +450,14 @@ async function runPackager() {
 }
 
 async function createMacZip() {
-  const zipPath = path.join(outputDir, 'Mailspring.zip');
+  const zipPath = path.join(outputDir, 'MailAr.zip');
   if (fs.existsSync(zipPath)) {
     fs.unlinkSync(zipPath);
   }
-  const cwd = path.join(outputDir, `Mailspring-darwin-${arch}`);
+  const cwd = path.join(outputDir, `MailAr-darwin-${arch}`);
   await spawn({
     cmd: 'zip',
-    args: ['-9', '-y', '-r', '-9', '-X', zipPath, 'Mailspring.app'],
+    args: ['-9', '-y', '-r', '-9', '-X', zipPath, 'MailAr.app'],
     opts: { cwd },
   });
   console.log(`>> Created ${zipPath}`);
@@ -503,7 +503,7 @@ async function createDebInstaller() {
     installedSize,
   };
   writeFromTemplate(path.join(linuxAssetsDir, 'debian', 'control.in'), data);
-  writeFromTemplate(path.join(linuxAssetsDir, 'Mailspring.desktop.in'), data);
+  writeFromTemplate(path.join(linuxAssetsDir, 'MailAr.desktop.in'), data);
   writeFromTemplate(path.join(linuxAssetsDir, 'mailspring.metainfo.xml.in'), data);
 
   const icon = path.join(appDir, 'build', 'resources', 'linux', 'icons', '512.png');
@@ -536,7 +536,7 @@ async function createRpmInstaller() {
   };
 
   writeFromTemplate(path.join(linuxAssetsDir, 'redhat', 'mailspring.spec.in'), templateData);
-  writeFromTemplate(path.join(linuxAssetsDir, 'Mailspring.desktop.in'), templateData);
+  writeFromTemplate(path.join(linuxAssetsDir, 'MailAr.desktop.in'), templateData);
   writeFromTemplate(path.join(linuxAssetsDir, 'mailspring.metainfo.xml.in'), templateData);
 
   await spawn({

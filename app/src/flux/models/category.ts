@@ -82,7 +82,7 @@ export class Category extends Model {
         return decoded.substr(prefix.length + 1); // + delimiter
       }
     }
-    if (decoded.startsWith('Mailspring/') || decoded.startsWith('Mailspring.')) {
+    if (decoded.startsWith('MailAr/') || decoded.startsWith('MailAr.')) {
       return decoded.substr(11);
     }
     if (decoded === 'INBOX') {

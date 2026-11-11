@@ -31,7 +31,7 @@ export const LocalizedErrorStrings = {
     'Connection Error - Unable to connect to the server / port you provided.'
   ),
   ErrorInvalidAccount: localized(
-    'This account is invalid or Mailspring could not find the Inbox or All Mail folder. %@',
+    'This account is invalid or MailAr could not find the Inbox or All Mail folder. %@',
     'https://getmailspring.com/docs/enable-all-mail-folder-for-gmail'
   ),
   ErrorTLSNotAvailable: localized('TLS Not Available'),
@@ -78,13 +78,13 @@ export const LocalizedErrorStrings = {
     'Sorry, your SMTP server does not support basic username / password authentication.'
   ),
   ErrorIdentityMissingFields: localized(
-    'Your Mailspring ID is missing required fields - you may need to reset Mailspring. %@',
+    'Your MailAr ID is missing required fields - you may need to reset MailAr. %@',
     'https://getmailspring.com/docs/your-mailspring-id-is-missing-required-fields'
   ),
 };
 
 // LocalizedErrorStrings codes that, despite being "classified" by mailsync,
-// can also indicate a genuine Mailspring defect rather than a server/user
+// can also indicate a genuine MailAr defect rather than a server/user
 // condition - a malformed-response parser regression, or corrupted local
 // identity state. These should keep reaching error reporting instead of
 // being treated as expected, user-actionable failures.
@@ -115,7 +115,7 @@ export function lastJSONResponse(stdout: string): any | null {
 }
 
 // Matched without the line before it: on Windows mailsync's stderr is in text mode, so \n arrives as \r\n.
-const EXCEPTION_HEADER = '*** Mailspring Sync';
+const EXCEPTION_HEADER = '*** MailAr Sync';
 
 /*
 Drops everything before the last exception mailsync logged to stderr.
@@ -355,7 +355,7 @@ export class MailsyncProcess extends EventEmitter {
             // Errors mailsync explicitly classified (bad credentials, unreachable
             // server, TLS/certificate problems, provider-side rate limits, etc.)
             // describe the mail server or the user's settings, not a bug in
-            // Mailspring - except for the ambiguous codes above, which we still
+            // MailAr - except for the ambiguous codes above, which we still
             // want reported if they occur. Callers that report unexpected errors
             // to Sentry (e.g. oauth-signin-page's error handler) check this flag
             // to avoid flooding error tracking with expected, user-actionable

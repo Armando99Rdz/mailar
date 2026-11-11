@@ -4,7 +4,7 @@ import { ViewRevision } from '../authoring/revisions';
 /**
  * Verification of the Views the backend sends: an agent's preview revisions and shared Views'
  * install bundles. Both are signed with Ed25519 over the canonical JSON of { manifest, files },
- * which proves the code came out of Mailspring's authoring pipeline. Nothing about the account
+ * which proves the code came out of MailAr's authoring pipeline. Nothing about the account
  * or View is bound: anyone can install a share, so any signed View can reach any account
  * anyway. The sandbox and the consent card are the security boundary for what the code can do.
  */

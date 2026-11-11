@@ -5,7 +5,7 @@ import {
   CalendarUtils,
   SyncbackEventTask,
 } from 'mailspring-exports';
-import { Event as MailspringEvent } from '../src/flux/models/event';
+import { Event as MailArEvent } from '../src/flux/models/event';
 
 // Import the functions under test directly from the source file.
 // We use a relative path because the plugin is not registered in mailspring-exports.
@@ -95,8 +95,8 @@ END:VCALENDAR`;
 // Helpers
 // ---------------------------------------------------------------------------
 
-function makeEvent(ics: string, overrides: Partial<MailspringEvent> = {}): MailspringEvent {
-  return new MailspringEvent({
+function makeEvent(ics: string, overrides: Partial<MailArEvent> = {}): MailArEvent {
+  return new MailArEvent({
     id: 'event-id-1',
     accountId: 'account-id-1',
     calendarId: 'calendar-id-1',
@@ -835,7 +835,7 @@ describe('modifySimpleEventChange', function () {
     spyOn(SyncbackEventTask, 'forUpdating').andCallFake((opts) => ({ _opts: opts }));
   });
 
-  const written = (event: MailspringEvent) => CalendarUtils.parseICSString(event.ics).event;
+  const written = (event: MailArEvent) => CalendarUtils.parseICSString(event.ics).event;
 
   it('writes only the edited property and revises the event once', function () {
     const event = makeEvent(FORMATTED_ICS);

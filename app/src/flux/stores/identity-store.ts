@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 
 import url from 'url';
 import querystring from 'querystring';
@@ -10,8 +10,8 @@ import { makeRequest, rootURLForServer } from '../mailspring-api-request';
 import { Disposable } from 'event-kit';
 import { debounce } from 'underscore';
 
-// Note this key name is used when migrating to Mailspring Pro accounts from old N1.
-const PASSWORD_NAME = 'Mailspring Account';
+// Note this key name is used when migrating to MailAr Pro accounts from old N1.
+const PASSWORD_NAME = 'MailAr Account';
 
 export interface IIdentity {
   id: string;
@@ -40,7 +40,7 @@ export const EMPTY_FEATURE_USAGE = {
   quota: 0,
 };
 
-class _IdentityStore extends MailspringStore {
+class _IdentityStore extends MailArStore {
   _identity: IIdentity = null;
   _displayedPasswordError = false;
   _disp: Disposable;
@@ -62,7 +62,7 @@ class _IdentityStore extends MailspringStore {
     AppEnv.config.onDidChange('identity', this._onIdentityChanged);
     this._onIdentityChanged();
 
-    this.listenTo(Actions.logoutMailspringIdentity, this._onLogoutMailspringIdentity);
+    this.listenTo(Actions.logoutMailArIdentity, this._onLogoutMailArIdentity);
     this._fetchAndPollRemoteIdentity();
   }
 
@@ -142,7 +142,7 @@ class _IdentityStore extends MailspringStore {
       : null;
 
     if (this._identity && !this._identity.token) {
-      const message = `Your Mailspring ID password could not be loaded from your keychain. Please visit Preferences > Subscription and click "Setup Mailspring ID" to sign in to your Mailspring account again.\n\nYour Mailspring ID email address is ${this._identity.emailAddress}.`;
+      const message = `Your MailAr ID password could not be loaded from your keychain. Please visit Preferences > Subscription and click "Setup MailAr ID" to sign in to your MailAr account again.\n\nYour MailAr ID email address is ${this._identity.emailAddress}.`;
       console.warn(message);
 
       if (!this._displayedPasswordError) {
@@ -155,19 +155,19 @@ class _IdentityStore extends MailspringStore {
     this.trigger();
   };
 
-  _onLogoutMailspringIdentity = async () => {
+  _onLogoutMailArIdentity = async () => {
     // Do not touch the keychain or restart the app during specs.
     if (AppEnv.inSpecMode()) return;
     await this.saveIdentity(null);
     // We need to relaunch the app to clear the webview session
-    // and prevent the webview from re signing in with the same MailspringID
+    // and prevent the webview from re signing in with the same MailArID
     require('@electron/remote').app.relaunch();
     require('@electron/remote').app.quit();
   };
 
   /**
    * This passes utm_source, utm_campaign, and utm_content params to the
-   * Mailspring billing site. Please reference:
+   * MailAr billing site. Please reference:
    * https://paper.dropbox.com/doc/Analytics-ID-Unification-oVDTkakFsiBBbk9aeuiA3
    * for the full list of utm_ labels.
    */

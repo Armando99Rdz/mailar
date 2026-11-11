@@ -1,6 +1,6 @@
 import { Actions, DatabaseStore, DestroyEventTask, SyncbackEventTask } from 'mailspring-exports';
 import { dialog } from '@electron/remote';
-import { Event as MailspringEvent } from '../src/flux/models/event';
+import { Event as MailArEvent } from '../src/flux/models/event';
 import { deleteEvent } from '../internal_packages/main-calendar/lib/core/recurring-event-actions';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 
@@ -35,7 +35,7 @@ const MASTER_START = Date.UTC(2026, 2, 1, 6, 0, 0) / 1000;
 const MOVED_START = Date.UTC(2026, 2, 2, 8, 0, 0) / 1000;
 
 const master = () =>
-  new MailspringEvent({
+  new MailArEvent({
     id: 'master-row',
     accountId: 'a',
     calendarId: 'c',
@@ -47,7 +47,7 @@ const master = () =>
   } as any);
 
 const exceptionRow = (recurrenceId: string) =>
-  new MailspringEvent({
+  new MailArEvent({
     id: 'exception-row',
     accountId: 'a',
     calendarId: 'c',
@@ -79,7 +79,7 @@ const occurrence: TimedOccurrence = {
 describe('deleting a moved occurrence from the calendar', function () {
   let queued: any[];
 
-  function stubRows(exception: MailspringEvent, masterRow: MailspringEvent | null) {
+  function stubRows(exception: MailArEvent, masterRow: MailArEvent | null) {
     spyOn(DatabaseStore, 'find').andReturn(Promise.resolve(exception));
     spyOn(DatabaseStore, 'findBy').andReturn(Promise.resolve(masterRow));
   }

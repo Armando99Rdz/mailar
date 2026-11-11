@@ -12,9 +12,9 @@ export const showGPeopleReadonlyNotice = (accountId: string) => {
     require('@electron/remote').dialog.showMessageBoxSync({
       message: localized(`Please re-authenticate with Google`),
       detail: localized(
-        `To make changes to contacts in this account, you'll need to re-authorize Mailspring to access your data.\n\n` +
-          `In Mailspring's main window, go to Preferences > Accounts, select this account, and click "Re-authenticate". ` +
-          `You'll be prompted to give Mailspring additional permission to update and delete your contacts.`
+        `To make changes to contacts in this account, you'll need to re-authorize MailAr to access your data.\n\n` +
+          `In MailAr's main window, go to Preferences > Accounts, select this account, and click "Re-authenticate". ` +
+          `You'll be prompted to give MailAr additional permission to update and delete your contacts.`
       ),
     });
     return true;

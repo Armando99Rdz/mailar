@@ -12,8 +12,8 @@ export interface AccountAutoaddress {
   type: 'cc' | 'bcc';
 }
 /*
- * Public: The Account model represents a Account served by the Mailspring Platform API.
- * Every object on the Mailspring platform exists within a Account, which typically represents
+ * Public: The Account model represents a Account served by the MailAr Platform API.
+ * Every object on the MailAr platform exists within a Account, which typically represents
  * an email account.
  *
  * ## Attributes

@@ -1,4 +1,4 @@
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 import { createDragState } from '../internal_packages/main-calendar/lib/core/calendar-drag-utils';
 import { DEFAULT_DRAG_CONFIG } from '../internal_packages/main-calendar/lib/core/calendar-drag-types';
@@ -37,7 +37,7 @@ describe('moving a meeting we do not organize', function () {
   let notice: jasmine.Spy;
 
   beforeEach(function () {
-    calendar = new MailspringCalendar({} as any);
+    calendar = new MailArCalendar({} as any);
     calendar.setState = (update: object) => Object.assign(calendar.state, update);
     calendar.state.calendarsLoaded = true;
     calendar.state.readOnlyCalendarIds = new Set();

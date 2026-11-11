@@ -8,8 +8,8 @@ import { AgendaPanel } from '../internal_packages/main-calendar/lib/core/agenda-
 import { ResizableRegion } from '../src/components/resizable-region';
 import { AgendaContainer } from '../internal_packages/main-calendar/lib/core/agenda-container';
 import {
-  MailspringCalendar,
-  MailspringCalendarViewProps,
+  MailArCalendar,
+  MailArCalendarViewProps,
 } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarView } from '../internal_packages/main-calendar/lib/core/calendar-constants';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
@@ -20,7 +20,7 @@ describe('AgendaPanel', function () {
   let host: HTMLDivElement;
   let buildObservable: jasmine.Spy;
 
-  const render = (overrides: Partial<MailspringCalendarViewProps> = {}) =>
+  const render = (overrides: Partial<MailArCalendarViewProps> = {}) =>
     ReactDOM.render(
       <AgendaPanel
         {...calendarViewProps({ dataSource: { buildObservable } as any, ...overrides })}
@@ -137,26 +137,26 @@ describe('AgendaPanel', function () {
   });
 });
 
-describe('MailspringCalendar agenda panel', function () {
+describe('MailArCalendar agenda panel', function () {
   const savedConfig = (values: { [key: string]: unknown }) =>
     spyOn(AppEnv.config, 'get').andCallFake((key: string) => values[key]);
 
   it('opens the default view, with the panel open, for a view saved as Agenda', function () {
     savedConfig({ 'mailspring.calendarView': 'Agenda' });
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     expect(calendar.state.view).toBe(CalendarView.WEEK);
     expect(calendar.state.agendaOpen).toBe(true);
   });
 
   it('keeps the panel closed for someone who closed it', function () {
     savedConfig({ 'mailspring.calendarAgendaOpen': false });
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     expect(calendar.state.agendaOpen).toBe(false);
   });
 
   it('keeps a saved view that still exists, and the panel as it was left', function () {
     savedConfig({ 'mailspring.calendarView': 'Month', 'mailspring.calendarAgendaOpen': true });
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     expect(calendar.state.view).toBe(CalendarView.MONTH);
     expect(calendar.state.agendaOpen).toBe(true);
   });
@@ -169,7 +169,7 @@ describe('MailspringCalendar agenda panel', function () {
   };
 
   const shownCalendar = () => {
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     calendar.setState = (update: object) => Object.assign(calendar.state, update);
     calendar.state.calendarsLoaded = true;
     calendar.state.calendars = [{ id: 'cal-1' }];
@@ -258,7 +258,7 @@ describe('MailspringCalendar agenda panel', function () {
   });
 
   it('leaves the panel out while there are no calendars to show', function () {
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     calendar.state.calendarsLoaded = true;
     expect(calendar.state.agendaOpen).toBe(true);
     expect(panelsIn(calendar.render()).length).toBe(0);

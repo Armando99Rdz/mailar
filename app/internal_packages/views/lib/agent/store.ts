@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { FeatureUsageStore, localized } from 'mailspring-exports';
 import { ViewAuthoring, openView } from '../authoring';
 import { hostsFor } from '../authoring/hosts';
@@ -251,7 +251,7 @@ interface SessionRuntime {
 let localIds = 0;
 const localId = (prefix: string) => `local-${prefix}-${Date.now()}-${(localIds += 1)}`;
 
-class AgentSessionStoreImpl extends MailspringStore {
+class AgentSessionStoreImpl extends MailArStore {
   private sessions = new Map<string, AgentSessionState>();
   private runtimes = new Map<string, SessionRuntime>();
   private active: string | null = null;

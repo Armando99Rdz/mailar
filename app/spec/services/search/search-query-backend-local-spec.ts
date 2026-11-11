@@ -66,7 +66,7 @@ describe('LocalSearchQueryBackend', function () {
       folder.run('f-archive', "Bob's Archive", null);
       folder.run('f-work', 'INBOX/Work', null);
       folder.run('f-dotted', 'INBOX.Dotted', null);
-      folder.run('f-snoozed', 'Mailspring/Snoozed', null);
+      folder.run('f-snoozed', 'MailAr/Snoozed', null);
       folder.run('f-utf7', 'INBOX/&AMk-t&AOk-', null);
       folder.run('f-under', 'INBOX/a_b', null);
       db.prepare('INSERT INTO Label VALUES (?, ?, ?)').run('l-political', 'Political Spam', null);
@@ -82,7 +82,7 @@ describe('LocalSearchQueryBackend', function () {
         ['t4', 'f-archive', "Bob's Archive "],
         ['t5', 'f-work', 'INBOX/Work ', 'Other'],
         ['t6', 'f-dotted', 'INBOX.Dotted ', 'Other'],
-        ['t7', 'f-snoozed', 'Mailspring/Snoozed ', 'Other'],
+        ['t7', 'f-snoozed', 'MailAr/Snoozed ', 'Other'],
         ['t8', 'f-utf7', 'INBOX/&AMk-t&AOk- ', 'Other'],
         ['t9', 'f-under', 'INBOX/a_b ', 'Other'],
       ]) {

@@ -1,9 +1,9 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import moment, { Moment } from 'moment';
 import { FocusedEventInfo } from './calendar-data-source';
 
 /** A module singleton, so the viewed date survives the grid unmounting while Mail shows. */
-class FocusedMomentStore extends MailspringStore {
+class FocusedMomentStore extends MailArStore {
   // Unset until the user picks a date, so a calendar first opened days after launch shows today.
   _focusedMoment: Moment | null = null;
   _focusedEvent: FocusedEventInfo | null = null;

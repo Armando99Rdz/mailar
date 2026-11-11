@@ -5,11 +5,11 @@ import { EventEmitter } from 'events';
 export type ListenableCallback = (...args: any[]) => void;
 
 export interface Listenable {
-  listen: (callback: ListenableCallback, thisArg: MailspringStore) => () => void;
+  listen: (callback: ListenableCallback, thisArg: MailArStore) => () => void;
   hasListener?: (a: any) => boolean;
 }
 
-export default class MailspringStore implements Listenable {
+export default class MailArStore implements Listenable {
   _emitter: EventEmitter;
   subscriptions: Array<{ stop: () => void; listenable: Listenable }>;
 

@@ -45,7 +45,7 @@ class LinkTrackingMessagePopover extends React.Component<{
         ) && (
           <div className="unattributed-note">
             {localized(
-              'This message was sent to everyone at once, so Mailspring cannot tell which recipient clicked.'
+              'This message was sent to everyone at once, so MailAr cannot tell which recipient clicked.'
             )}
           </div>
         )}

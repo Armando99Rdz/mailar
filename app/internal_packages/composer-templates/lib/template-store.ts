@@ -8,7 +8,7 @@ import {
   RegExpUtils,
 } from 'mailspring-exports';
 
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import path from 'path';
 import fs from 'fs';
 
@@ -25,7 +25,7 @@ export interface TemplateItem {
   subject: string;
 }
 
-class TemplateStore extends MailspringStore {
+class TemplateStore extends MailArStore {
   private _items: TemplateItem[] = [];
   private _templatesDir = path.join(AppEnv.getConfigDirPath(), 'templates');
   private _watcher = null;
@@ -93,7 +93,7 @@ class TemplateStore extends MailspringStore {
       AppEnv.showErrorDialog({
         title: localized('Cannot scan templates directory'),
         message: localized(
-          'Mailspring was unable to read the contents of your templates directory (%@). You may want to delete this folder or ensure filesystem permissions are set correctly.',
+          'MailAr was unable to read the contents of your templates directory (%@). You may want to delete this folder or ensure filesystem permissions are set correctly.',
           this._templatesDir
         ),
       });

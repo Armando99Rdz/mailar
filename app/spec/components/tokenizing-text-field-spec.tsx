@@ -23,7 +23,7 @@ const participant1 = new Contact({
 const participant2 = new Contact({
   id: '2',
   email: 'burgers@mailspring.com',
-  name: 'Mailspring Burger Basket',
+  name: 'MailAr Burger Basket',
   hidden: false,
   source: 'mail',
 });
@@ -195,8 +195,8 @@ describe('TokenizingTextField', function () {
 
       expect(dragStartEventData).toEqual({
         'mailspring-token-items':
-          '[{"id":"2","name":"Mailspring Burger Basket","h":false,"s":"mail","email":"burgers@mailspring.com","gis":[],"__cls":"Contact"}]',
-        'text/plain': 'Mailspring Burger Basket <burgers@mailspring.com>',
+          '[{"id":"2","name":"MailAr Burger Basket","h":false,"s":"mail","email":"burgers@mailspring.com","gis":[],"__cls":"Contact"}]',
+        'text/plain': 'MailAr Burger Basket <burgers@mailspring.com>',
       });
 
       const dropDataTransfer = {

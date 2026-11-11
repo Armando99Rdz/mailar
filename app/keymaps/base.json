@@ -21,7 +21,6 @@
   "window:close": "mod+w",
 
   "core:snooze-item": "z",
-  "core:print-thread": "mod+p",
   "core:copy-mailbox-link": "ctrl+l",
   "core:focus-item": "enter",
   "core:remove-from-view": ["backspace", "del"],

@@ -169,14 +169,14 @@ export class SendDraftTask extends Task {
         'Your `Sent Mail` folder could not be automatically detected. Visit Preferences > Folders to choose a Sent folder and then try again.'
       );
       errorDetail = localized(
-        'In order to send mail through Mailspring, your email account must have a Sent Mail folder. You can specify a Sent folder manually by visiting Preferences > Folders and choosing a folder name from the dropdown menu.'
+        'In order to send mail through MailAr, your email account must have a Sent Mail folder. You can specify a Sent folder manually by visiting Preferences > Folders and choosing a folder name from the dropdown menu.'
       );
     } else if (key === 'no-trash-folder') {
       errorMessage = localized(
         'Your `Trash` folder could not be automatically detected. Visit Preferences > Folders to choose a Trash folder and then try again.'
       );
       errorDetail = localized(
-        'In order to send mail through Mailspring, your email account must have a Trash folder. You can specify a Trash folder manually by visiting Preferences > Folders and choosing a folder name from the dropdown menu.'
+        'In order to send mail through MailAr, your email account must have a Trash folder. You can specify a Trash folder manually by visiting Preferences > Folders and choosing a folder name from the dropdown menu.'
       );
     } else if (key === 'send-partially-failed') {
       const [smtpError, emails] = debuginfo.split(':::');
@@ -202,21 +202,21 @@ export class SendDraftTask extends Task {
       const signsInWithMicrosoft = account && ['office365', 'outlook'].includes(account.provider);
       if (!account || isSharedMailbox) {
         errorMessage = localized(
-          'Microsoft has turned off SMTP sending for this mailbox. An administrator must enable SMTP AUTH for it before Mailspring can send from it.'
+          'Microsoft has turned off SMTP sending for this mailbox. An administrator must enable SMTP AUTH for it before MailAr can send from it.'
         );
       } else if (signsInWithMicrosoft) {
         errorMessage = localized(
-          "Microsoft has turned off SMTP sending for this account. Reconnect the account in Preferences > Accounts so Mailspring can send through Microsoft 365. If Microsoft asks for an administrator's approval, an administrator must approve Mailspring's mail permissions or enable SMTP AUTH."
+          "Microsoft has turned off SMTP sending for this account. Reconnect the account in Preferences > Accounts so MailAr can send through Microsoft 365. If Microsoft asks for an administrator's approval, an administrator must approve MailAr's mail permissions or enable SMTP AUTH."
         );
       } else {
         errorMessage = localized(
-          'Microsoft has turned off SMTP sending for this account. Remove it in Preferences > Accounts and add it again by choosing Outlook.com or Office 365, so Mailspring signs in with Microsoft and can send through Microsoft 365.'
+          'Microsoft has turned off SMTP sending for this account. Remove it in Preferences > Accounts and add it again by choosing Outlook.com or Office 365, so MailAr signs in with Microsoft and can send through Microsoft 365.'
         );
       }
       errorDetail = debuginfo;
     } else if (key === 'send-failed') {
       errorMessage = localized(
-        `Sorry, Mailspring was unable to deliver this message: %@`,
+        `Sorry, MailAr was unable to deliver this message: %@`,
         LocalizedErrorStrings[debuginfo] || debuginfo
       );
     } else {

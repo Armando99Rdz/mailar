@@ -1,11 +1,11 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { VisibleRange } from 'mailspring-component-kit';
 
 /**
  * The days Week or Day is showing, for the sidebar's mini month to shade; null in Month view.
  * Apart from FocusedMomentStore, whose listeners would take each scroll step for a new focus.
  */
-class VisibleRangeStore extends MailspringStore {
+class VisibleRangeStore extends MailArStore {
   _visibleRange: VisibleRange | null = null;
 
   visibleRange() {

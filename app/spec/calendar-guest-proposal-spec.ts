@@ -12,7 +12,7 @@ import {
   SyncbackEventTask,
   TaskQueue,
 } from 'mailspring-exports';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { EventPanel } from '../internal_packages/main-calendar/lib/core/event-panel';
 import {
   TimedOccurrence,
@@ -100,7 +100,7 @@ const invitation = occurrenceOf('alex@example.com', ME);
 const ours = occurrenceOf(ME, 'jordan@example.com');
 
 function calendarWith(selected: TimedOccurrence[]) {
-  const calendar: any = new MailspringCalendar({} as any);
+  const calendar: any = new MailArCalendar({} as any);
   calendar.setState = (update: object | ((state: object) => object | null)) =>
     Object.assign(calendar.state, typeof update === 'function' ? update(calendar.state) : update);
   calendar.state.selectedEvents = selected;

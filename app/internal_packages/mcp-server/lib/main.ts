@@ -1,6 +1,6 @@
 import { localized, PreferencesUIStore } from 'mailspring-exports';
 import McpServerManager from './mcp-server-manager';
-import { refreshMailspringClaudeDesktopEntryIfStale } from './claude-desktop-config';
+import { refreshMailArClaudeDesktopEntryIfStale } from './claude-desktop-config';
 
 let preferencesTab: any = null;
 
@@ -8,7 +8,7 @@ export function activate() {
   if (AppEnv.isMainWindow()) {
     McpServerManager.activate();
     try {
-      refreshMailspringClaudeDesktopEntryIfStale();
+      refreshMailArClaudeDesktopEntryIfStale();
     } catch (err) {
       console.warn('[MCP Server] Could not refresh the Claude Desktop registration:', err);
     }

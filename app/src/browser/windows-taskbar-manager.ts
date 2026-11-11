@@ -1,7 +1,7 @@
 import { app, ipcMain, nativeImage, NativeImage } from 'electron';
 import { localized } from '../intl';
 import Application from './application';
-import { onFromMailspringWindows } from './trusted-ipc';
+import { onFromMailArWindows } from './trusted-ipc';
 
 /**
  * Manages Windows-specific taskbar integration features:
@@ -57,7 +57,7 @@ class WindowsTaskbarManager {
             {
               type: 'task',
               title: localized('Preferences'),
-              description: localized('Open Mailspring preferences'),
+              description: localized('Open MailAr preferences'),
               program: process.execPath,
               args: 'mailspring://open-preferences',
               iconPath: process.execPath,
@@ -76,7 +76,7 @@ class WindowsTaskbarManager {
    */
   private _registerIpcHandlers() {
     // Overlay icon: updated when badge/unread count changes
-    onFromMailspringWindows(ipcMain, 'set-overlay-icon', (_event, unreadCount: number) => {
+    onFromMailArWindows(ipcMain, 'set-overlay-icon', (_event, unreadCount: number) => {
       this._updateOverlayIcon(unreadCount);
     });
   }

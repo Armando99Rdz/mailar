@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { ScrollRegion, SVGIcons } from 'mailspring-component-kit';
 import { localized, Actions, CalendarDate, CalendarDateUtils, DateUtils } from 'mailspring-exports';
-import { MailspringCalendarViewProps } from './mailspring-calendar';
+import { MailArCalendarViewProps } from './mailspring-calendar';
 import { CalendarEventPopover } from './calendar-event-popover';
 import {
   EventOccurrence,
@@ -23,7 +23,7 @@ import {
 const DAYS_IN_PANEL = 14;
 
 export type AgendaPanelProps = Pick<
-  MailspringCalendarViewProps,
+  MailArCalendarViewProps,
   'dataSource' | 'disabledCalendars' | 'selectedEvents' | 'onEventClick' | 'isCalendarReadOnly'
 > & {
   onEventDoubleClick?: (event: EventOccurrence) => void;

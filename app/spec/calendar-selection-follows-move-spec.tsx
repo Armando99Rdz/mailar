@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Actions, DatabaseStore, Event, TaskQueue } from 'mailspring-exports';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarEvent } from '../internal_packages/main-calendar/lib/core/calendar-event';
 import { MonthViewEvent } from '../internal_packages/main-calendar/lib/core/month-view-event';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
@@ -85,7 +85,7 @@ const occurrenceAt = (start: number, over: Partial<TimedOccurrence> = {}): Timed
   }) as TimedOccurrence;
 
 function calendarWith(selected: TimedOccurrence[]) {
-  const calendar: any = new MailspringCalendar({} as any);
+  const calendar: any = new MailArCalendar({} as any);
   calendar.setState = (update: object) => Object.assign(calendar.state, update);
   calendar.state.selectedEvents = selected;
   calendar.state.calendarsLoaded = true;

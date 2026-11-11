@@ -8,7 +8,9 @@
 @gray-lighter: darken(@gray-base, 92.5%);
 @white: #0a0a0a;
 
-@accent-primary: var(--system-accent, #58b660);
+@accent-primary: #0485f7;
+@btn-emphasis-bg-color: #0485f7;
+@border-radius-base: 8px;
 // @accent-primary-dark falls through to base/ui-variables.less, which derives
 // it from @accent-primary via color-mix (10% darker). Override here only if
 // a different shade is desired for this theme.
@@ -43,13 +45,33 @@
 @input-bg: #2e2e2e;
 @input-border: @border-color-divider;
 
-@list-bg: #333;
-@list-border: #383838;
-@list-selected-color: @text-color-inverse;
-@list-focused-color: @text-color;
+// Same quiet card as the light theme, on a darker canvas.
+@snow-canvas: #0b0b0d;
+@snow-card: #1c1c1e;
+@snow-selected: #2c2c31;
+@snow-hover: #242428;
+@snow-line: rgba(255, 255, 255, 0.08);
 
-@toolbar-background-color: #121212;
-@panel-background-color: #121212;
+@background-primary: @snow-card;
+@background-off-primary: @snow-card;
+@background-secondary: @snow-card;
+
+@list-bg: @snow-card;
+@list-border: @snow-line;
+@list-hover-bg: @snow-hover;
+@list-selected-bg: @snow-selected;
+@list-selected-color: @text-color;
+@list-selected-border: transparent;
+@list-focused-bg: @snow-selected;
+@list-focused-color: @text-color;
+@list-focused-border: transparent;
+
+@toolbar-background-color: @snow-card;
+@panel-background-color: @snow-card;
+@source-list-bg: @snow-card;
+@source-list-inset-bg: @snow-card;
+@source-list-active-bg: @snow-selected;
+@source-list-active-color: @text-color;
 
 .thread-icon:not(.thread-icon-unread):not(.thread-icon-star) {
   filter: invert(100%);
@@ -104,3 +126,5 @@ body.is-blurred .sheet-toolbar-container {
 body.platform-darwin.is-blurred .sheet-toolbar-container {
   background: @panel-background-color;
 }
+
+@import 'layout';

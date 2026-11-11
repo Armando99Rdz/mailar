@@ -3,7 +3,7 @@ import {
   QuotedHTMLTransformer,
   localized,
   Actions,
-  MailspringAPIRequest,
+  MailArAPIRequest,
   RegExpUtils,
   FeatureLexicon,
 } from 'mailspring-exports';
@@ -122,10 +122,10 @@ export const AllLanguages = {
 export const TranslationsUsedLexicon: FeatureLexicon = {
   headerText: localized('All Translations Used'),
   rechargeText: `${localized(
-    'You can translate up to %1$@ emails each %2$@ with Mailspring Basic.'
+    'You can translate up to %1$@ emails each %2$@ with MailAr Basic.'
   )} ${localized('Upgrade to Pro today!')}`,
   rechargeTextAllTime: `${localized(
-    "You've used the %1$@ free translations included with Mailspring Basic."
+    "You've used the %1$@ free translations included with MailAr Basic."
   )} ${localized('Upgrade to Pro today!')}`,
   iconUrl: 'mailspring://translation/assets/ic-translation-modal@2x.png',
 };
@@ -239,7 +239,7 @@ export async function translateMessageBody(
 
     let response = null;
     try {
-      response = await MailspringAPIRequest.makeRequest({
+      response = await MailArAPIRequest.makeRequest({
         server: 'identity',
         method: 'POST',
         path: `/api/translate`,

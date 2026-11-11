@@ -1,7 +1,7 @@
 import _ from 'underscore';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 
-export class Registry extends MailspringStore {
+export class Registry extends MailArStore {
   name: string;
   _registry: { name: string; extension: any; priority: number }[];
 

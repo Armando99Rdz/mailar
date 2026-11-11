@@ -635,7 +635,7 @@ export class AuthoringPanel extends React.Component<Record<string, unknown>, Sta
           <span
             className="ap-cloud-hint"
             title={localized(
-              "Building and editing Views uses Mailspring's cloud AI. It sees your messages here, the example emails you drop in, and screenshots you choose to send — nothing else from your mailbox."
+              "Building and editing Views uses MailAr's cloud AI. It sees your messages here, the example emails you drop in, and screenshots you choose to send — nothing else from your mailbox."
             )}
           >
             {localized('Cloud AI · sees only what you share here')}
@@ -784,7 +784,7 @@ export class AuthoringPanel extends React.Component<Record<string, unknown>, Sta
         </div>
         {firstBuild && (
           <div className="ap-busy-hint">
-            The first version usually takes a few minutes. You can keep using Mailspring.
+            The first version usually takes a few minutes. You can keep using MailAr.
           </div>
         )}
       </div>

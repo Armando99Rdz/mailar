@@ -401,7 +401,7 @@ xdescribe('DraftStore', function draftStore() {
       runs(() => {
         return DraftStore._onSendDraft(this.draft.headerMessageId);
       });
-      waitsFor(() => (AppEnv.close as jasmine.Spy).calls.length > 0, 'Mailspring to close');
+      waitsFor(() => (AppEnv.close as jasmine.Spy).calls.length > 0, 'MailAr to close');
     });
 
     it("doesn't close the window if it's inline", () => {

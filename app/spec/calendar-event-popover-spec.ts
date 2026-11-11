@@ -7,7 +7,7 @@ import {
 } from 'mailspring-exports';
 import TimePicker from '../src/components/time-picker';
 import { DatePicker } from '../src/components/date-picker';
-import { Event as MailspringEvent } from '../src/flux/models/event';
+import { Event as MailArEvent } from '../src/flux/models/event';
 import { CalendarEventPopover } from '../internal_packages/main-calendar/lib/core/calendar-event-popover';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -84,7 +84,7 @@ const START = Date.UTC(2026, 2, 3, 14, 0, 0) / 1000;
 const END = Date.UTC(2026, 2, 3, 15, 0, 0) / 1000;
 
 function makeEvent(ics: string) {
-  return new MailspringEvent({
+  return new MailArEvent({
     id: 'event-1',
     accountId: 'account-1',
     calendarId: 'calendar-1',
@@ -120,7 +120,7 @@ function makeOccurrence(title: string, extra: Partial<TimedOccurrence> = {}): Ti
 // state, updateField is what every input calls, and _saveAllOccurrences is the save. The
 // component is not mounted, so setState is redirected straight into state.
 async function openEditor(
-  event: MailspringEvent,
+  event: MailArEvent,
   title: string,
   extra: Partial<TimedOccurrence> = {}
 ) {

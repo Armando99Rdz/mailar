@@ -7,7 +7,7 @@ interface EventGridBackgroundProps {
   height: number;
   numColumns: number;
   intervalHeight: number;
-  /** See MailspringCalendarViewProps.paintVersion; the canvas reads the theme's line colours only when it paints. */
+  /** See MailArCalendarViewProps.paintVersion; the canvas reads the theme's line colours only when it paints. */
   paintVersion: string;
 }
 

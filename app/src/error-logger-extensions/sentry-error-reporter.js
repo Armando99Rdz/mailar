@@ -20,7 +20,7 @@ function makeEventId() {
 }
 
 // console.log can itself throw (eg. EPIPE writing to a closed stdout/stderr
-// pipe on Linux, when the terminal or launcher that started Mailspring has
+// pipe on Linux, when the terminal or launcher that started MailAr has
 // exited). These calls run inside network callbacks rather than the
 // top-level uncaughtException handler, so a stray throw here escapes as an
 // unrelated "write EPIPE" crash reported from this file (Sentry:
@@ -55,7 +55,7 @@ function isInApp(filename) {
 // Sentry expects frames oldest-first; V8 produces newest-first, so reverse.
 
 // In packaged builds, frames contain absolute paths like:
-//   /Applications/Mailspring.app/Contents/Resources/app.asar/src/foo.js
+//   /Applications/MailAr.app/Contents/Resources/app.asar/src/foo.js
 // Normalize to app:///src/foo.js so Sentry matches uploaded source map artifacts.
 function normalizeFilename(filename) {
   const asarIdx = filename.indexOf('.asar/');

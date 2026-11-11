@@ -34,7 +34,7 @@ import {
   tickGenerator,
   dayFraction,
 } from './week-view-helpers';
-import { MailspringCalendarViewProps } from './mailspring-calendar';
+import { MailArCalendarViewProps } from './mailspring-calendar';
 import { getEventsWithDragPreview, withNewEventPreview } from './calendar-drag-utils';
 import { withUnsentChange } from './unsent-change';
 import { WeekdayHeader } from './weekday-header';
@@ -65,7 +65,7 @@ function moveFocusInto(focusedMoment: Moment, start: CalendarDate, visibleDays: 
   return moment(focusedMoment).add(CalendarDateUtils.calendarDaysBetween(focused, inSpan), 'days');
 }
 
-interface TimeGridViewProps extends MailspringCalendarViewProps {
+interface TimeGridViewProps extends MailArCalendarViewProps {
   /** 7 lines up on the week's first day; 1 on the focused day. */
   visibleDays: 1 | 7;
 }

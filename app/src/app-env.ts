@@ -120,7 +120,7 @@ export default class AppEnvConstructor {
     // require of mailspring-observables
     require('mailspring-observables');
 
-    // Mailspring exports is designed to provide a lazy-loaded set of globally
+    // MailAr exports is designed to provide a lazy-loaded set of globally
     // accessible objects to all packages. Upon require, mailspring-exports will
     // fill the StoreRegistry, and DatabaseObjectRegistries
     // with various constructors.
@@ -135,9 +135,9 @@ export default class AppEnvConstructor {
     const MailsyncBridge = require('./flux/mailsync-bridge').default;
     this.mailsyncBridge = new MailsyncBridge();
 
-    process.title = `Mailspring ${this.getWindowType()}`;
+    process.title = `MailAr ${this.getWindowType()}`;
     this.onWindowPropsReceived(() => {
-      process.title = `Mailspring ${this.getWindowType()}`;
+      process.title = `MailAr ${this.getWindowType()}`;
     });
 
     // Shortcut phased out in April 2026, remove in June/July 2026
@@ -167,7 +167,7 @@ export default class AppEnvConstructor {
       'Start Menu',
       'Programs',
       'Startup',
-      'Mailspring.lnk'
+      'MailAr.lnk'
     );
     const fs = require('fs');
     const exists = fs.existsSync(shortcutPath);
@@ -392,7 +392,7 @@ export default class AppEnvConstructor {
     return this.getLoadSettings().isSpec;
   }
 
-  // Public: Get the version of Mailspring.
+  // Public: Get the version of MailAr.
   //
   // Returns the version text {String}.
   private appVersion;
@@ -409,7 +409,7 @@ export default class AppEnvConstructor {
     return !/\w{7}/.test(this.getVersion());
   }
 
-  // Public: Get the directory path to Mailspring's configuration area.
+  // Public: Get the directory path to MailAr's configuration area.
   getConfigDirPath() {
     return this.getLoadSettings().configDirPath;
   }
@@ -433,7 +433,7 @@ export default class AppEnvConstructor {
   }
 
   /*
-  Section: Managing The Mailspring Window
+  Section: Managing The MailAr Window
   */
 
   // Essential: Close the current window.
@@ -1017,7 +1017,7 @@ export default class AppEnvConstructor {
   // work and then call finishUnload. We do not support cancelling quit!
   // https://phab.mailspring.com/D1932#inline-11722
   //
-  // Also see logic in browser/MailspringWindow::handleEvents where we listen
+  // Also see logic in browser/MailArWindow::handleEvents where we listen
   // to the browserWindow.on 'close' event to catch "unclosable" windows.
   onBeforeUnload(callback) {
     return this.windowEventHandler.addUnloadCallback(callback);

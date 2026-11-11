@@ -16,7 +16,7 @@ import { Filter, FilterMatcher, compileFilter } from './filter';
 export interface MailQuery {
   /** Structured filter (filter.ts). The preferred way to query. */
   filter?: Filter;
-  /** Mailspring search grammar, as typed in the search bar. */
+  /** MailAr search grammar, as typed in the search bar. */
   search?: string;
   accountId?: string;
   categoryId?: string;

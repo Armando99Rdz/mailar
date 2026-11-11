@@ -1,5 +1,5 @@
 import { localized, Actions, AccountStore } from 'mailspring-exports';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import _ from 'underscore';
 
 export interface IDefaultSignatures {
@@ -20,7 +20,7 @@ export interface ISignatureSet {
   [key: string]: ISignature;
 }
 
-class _SignatureStore extends MailspringStore {
+class _SignatureStore extends MailArStore {
   signatures: ISignatureSet;
   defaultSignatures: IDefaultSignatures;
   selectedSignatureId: string;
@@ -39,14 +39,14 @@ class _SignatureStore extends MailspringStore {
     // If the user has no signatures (after a clean install or upgrade from 1.0.9),
     // create a default one for them and apply it to all their accounts.
     if (!this.signatures) {
-      const sentFrom = localized('Sent from Mailspring, the best free email app for work');
+      const sentFrom = localized('Sent from MailAr, the best free email app for work');
       this.signatures = {
         initial: {
           id: 'initial',
           title: localized('Default'),
           body: `<div><div>${sentFrom.replace(
-            'Mailspring',
-            '<a href="https://getmailspring.com/">Mailspring</a>'
+            'MailAr',
+            '<a href="https://getmailspring.com/">MailAr</a>'
           )}</div></div>`,
           data: {
             title: sentFrom,

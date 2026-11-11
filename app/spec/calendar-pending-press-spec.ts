@@ -1,4 +1,4 @@
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 import { DEFAULT_DRAG_CONFIG } from '../internal_packages/main-calendar/lib/core/calendar-drag-types';
 import * as CalendarDateUtils from '../src/calendar-date';
@@ -43,7 +43,7 @@ describe('pressing an event', function () {
   let renders: number;
 
   beforeEach(function () {
-    cal = new MailspringCalendar({} as any);
+    cal = new MailArCalendar({} as any);
     renders = 0;
     cal.setState = (next: any) => {
       renders++;
@@ -79,7 +79,7 @@ describe('pressing an event', function () {
         ...at(container.x, container.y),
         mouseEvent: { button: 0, clientX: 400, clientY },
       }) as any;
-    cal = new MailspringCalendar({} as any);
+    cal = new MailArCalendar({} as any);
     cal.setState = (next: any) => Object.assign(cal.state, next);
     cal.state = { ...cal.state, calendarsLoaded: true, view: CalendarView.MONTH };
     cal._onEventDragStart(occurrence, {} as any, { mode: 'move' } as any);
@@ -118,7 +118,7 @@ describe("pressing a meeting we don't organize", function () {
       isMine: false,
       organizer: { email: 'ada@example.com' },
     };
-    const cal: any = new MailspringCalendar({} as any);
+    const cal: any = new MailArCalendar({} as any);
     cal.setState = (next: any) => Object.assign(cal.state, next);
     cal.state = { ...cal.state, calendarsLoaded: true, readOnlyCalendarIds: new Set() };
     cal._onEventDragStart(uninvitedMeeting, {} as any, { mode: 'move' } as any);

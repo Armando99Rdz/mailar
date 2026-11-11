@@ -4,9 +4,9 @@ import os from 'os';
 import { FsUtils } from 'mailspring-exports';
 
 // Claude Desktop only speaks stdio to MCP servers listed in its config file
-// (a `url` entry is not supported and is discarded on launch), so Mailspring
+// (a `url` entry is not supported and is discarded on launch), so MailAr
 // registers a stdio bridge that proxies to its HTTP server. The bridge runs
-// under Mailspring's own Electron binary as Node (ELECTRON_RUN_AS_NODE), so
+// under MailAr's own Electron binary as Node (ELECTRON_RUN_AS_NODE), so
 // the setup works without any Node.js on the machine and never depends on
 // Claude Desktop's PATH — the failure behind
 // https://community.getmailspring.com/t/mcp-claude-desktop-not-working/14528.
@@ -90,7 +90,7 @@ function writeConfig(configPath: string, config: ClaudeDesktopConfig) {
   FsUtils.atomicWriteFileSync(configPath, JSON.stringify(config, null, 2));
 }
 
-export function writeMailspringClaudeDesktopEntry() {
+export function writeMailArClaudeDesktopEntry() {
   const { configPath, config } = readConfig();
   if (!config.mcpServers) config.mcpServers = {};
   config.mcpServers[ENTRY_NAME] = mailspringClaudeDesktopEntry();
@@ -98,7 +98,7 @@ export function writeMailspringClaudeDesktopEntry() {
 }
 
 // The bridge form above, or the earlier form that ran `npx mcp-remote@latest`.
-function isMailspringEntry(entry: Partial<McpServerEntry>): boolean {
+function isMailArEntry(entry: Partial<McpServerEntry>): boolean {
   if (entry.env?.ELECTRON_RUN_AS_NODE) return true;
   return entry.command === 'npx' && (entry.args || []).includes('mcp-remote@latest');
 }
@@ -110,18 +110,18 @@ function pointsAtMissingFiles(entry: Partial<McpServerEntry>): boolean {
 // The registered entry embeds absolute paths that go stale when the app is
 // moved, and on Windows after every Squirrel update (each version installs
 // into its own app-x.y.z directory). Called at startup: rewrites the entry
-// only when Mailspring wrote it and it no longer points at existing files,
+// only when MailAr wrote it and it no longer points at existing files,
 // which also migrates the npx form. Skipped for copies that aren't a real
 // install (dev mode, or macOS builds run from Downloads or a mounted DMG) so
 // a registration pointing at /Applications is never repointed at a path that
 // disappears.
-export function refreshMailspringClaudeDesktopEntryIfStale() {
+export function refreshMailArClaudeDesktopEntryIfStale() {
   if (AppEnv.inDevMode()) return;
   if (process.platform === 'darwin' && !electronApp().isInApplicationsFolder()) return;
 
   const { configPath, config } = readConfig();
   const existing = config.mcpServers?.[ENTRY_NAME];
-  if (!existing || !isMailspringEntry(existing)) return;
+  if (!existing || !isMailArEntry(existing)) return;
   if (existing.env?.ELECTRON_RUN_AS_NODE && !pointsAtMissingFiles(existing)) return;
 
   config.mcpServers[ENTRY_NAME] = mailspringClaudeDesktopEntry();

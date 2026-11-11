@@ -1,4 +1,4 @@
-# 💌 Mailspring
+# 💌 MailAr
 
 **Mailspring is a new version of Nylas Mail maintained by one of the original authors. It's faster, leaner, and shipping today!** It replaces the JavaScript sync code in Nylas Mail with a new C++ sync engine based on [Mailcore2](https://github.com/MailCore/mailcore2). It uses roughly half the RAM and CPU of Nylas Mail and idles with almost zero "CPU Wakes", which translates to great battery life. It also has an entirely revamped composer and other great new features.
 
@@ -46,10 +46,11 @@ To install all dependencies and run Mailspring from its source code,
 run the following commands from the root directory of the Mailspring repository:
 
 ```
-export npm_config_arch=x64 # If you are on an M1 / Apple Silicon Mac
 npm install
 npm start
 ```
+
+On Apple Silicon, run this from a native arm64 terminal. `npm install` downloads an arm64 Electron and compiles native modules such as `better-sqlite3` for the same architecture. Setting `npm_config_arch=x64` downloads an Intel Electron while those modules stay arm64, and the app then fails to load its database.
 
 You can attach command line parameters by separating them using a double hyphen:
 

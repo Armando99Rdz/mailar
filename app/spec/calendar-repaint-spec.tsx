@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 import moment from 'moment';
 import { Calendar } from '../src/flux/models/calendar';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarView } from '../internal_packages/main-calendar/lib/core/calendar-constants';
 import { TimeGridView } from '../internal_packages/main-calendar/lib/core/time-grid-view';
 import { WeekViewEventColumn } from '../internal_packages/main-calendar/lib/core/week-view-event-column';
@@ -20,7 +20,7 @@ describe('repainting the calendar when colours change', function () {
     return cal._renderMainContent() as React.ReactElement<{ paintVersion: string }>;
   }
   function loadedCalendar() {
-    const cal: any = new MailspringCalendar({} as any);
+    const cal: any = new MailArCalendar({} as any);
     cal.state = { ...cal.state, calendarsLoaded: true, calendars: [calendar('#112233')] };
     return cal;
   }

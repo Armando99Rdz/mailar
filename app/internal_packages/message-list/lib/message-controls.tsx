@@ -12,7 +12,6 @@ import {
   ComponentRegistry,
 } from 'mailspring-exports';
 import { RetinaImg, ButtonDropdown, Menu } from 'mailspring-component-kit';
-import { developerToolsAvailable } from '../../../src/developer-tools';
 
 interface MessageControlsProps {
   thread: Thread;
@@ -39,19 +38,13 @@ export default class MessageControls extends React.Component<MessageControlsProp
       select: this._onForward,
     };
 
-    const showOriginal = {
-      name: localized('Show Original'),
-      image: 'ic-dropdown-whitespace.png',
-      select: this._onShowOriginal,
-    };
-
     if (!this.props.message.canReplyAll()) {
-      return [reply, forward, showOriginal];
+      return [reply, forward];
     }
     const defaultReplyType = AppEnv.config.get('core.sending.defaultReplyType');
     return defaultReplyType === 'reply-all'
-      ? [replyAll, reply, forward, showOriginal]
-      : [reply, replyAll, forward, showOriginal];
+      ? [replyAll, reply, forward]
+      : [reply, replyAll, forward];
   }
 
   _dropdownMenu(items: Array<{ name: string; image: string; select: () => void }>) {
@@ -123,17 +116,6 @@ export default class MessageControls extends React.Component<MessageControlsProp
     // Todo: refactor this so that message actions are provided
     // dynamically. Waiting to see if this will be used often.
     const menu = new SystemMenu();
-    menu.append(new SystemMenuItem({ label: localized('Log Data'), click: this._onLogData }));
-    menu.append(
-      new SystemMenuItem({ label: localized('Show Original'), click: this._onShowOriginal })
-    );
-    menu.append(
-      new SystemMenuItem({
-        label: localized('Copy Debug Info to Clipboard'),
-        click: this._onCopyToClipboard,
-      })
-    );
-    menu.append(new SystemMenuItem({ type: 'separator' }));
     menu.append(
       new SystemMenuItem({ label: localized('Download as .eml'), click: this._onDownloadEml })
     );
@@ -152,65 +134,6 @@ export default class MessageControls extends React.Component<MessageControlsProp
     }
 
     menu.popup({});
-  };
-
-  _onShowOriginal = async () => {
-    const { message } = this.props;
-    const filepath = require('path').join(
-      require('@electron/remote').app.getPath('temp'),
-      message.id
-    );
-    const task = new GetMessageRFC2822Task({
-      messageId: message.id,
-      accountId: message.accountId,
-      filepath,
-    });
-    Actions.queueTask(task);
-    await TaskQueue.waitForPerformRemote(task);
-
-    // The task can reach "complete" status even when it failed remotely (eg.
-    // the message could not be fetched from the server), in which case the
-    // file is never written. Verify it exists before trying to display it.
-    if (!require('fs').existsSync(filepath)) {
-      AppEnv.showErrorDialog(
-        localized('Could not retrieve the original message. Please try again.')
-      );
-      return;
-    }
-
-    const { BrowserWindow } = require('@electron/remote');
-    const win = new BrowserWindow({
-      width: 800,
-      height: 600,
-      title: `${message.subject} - RFC822`,
-      webPreferences: {
-        javascript: false,
-        nodeIntegration: false,
-        devTools: developerToolsAvailable(),
-      },
-    });
-    win.loadURL(`file://${filepath}`).catch((err: Error) => {
-      console.error('Show Original window failed to load:', err);
-    });
-  };
-
-  _onLogData = () => {
-    console.log(this.props.message);
-    (window as any).__message = this.props.message;
-    (window as any).__thread = this.props.thread;
-    console.log('Also now available in window.__message and window.__thread');
-  };
-
-  _onCopyToClipboard = () => {
-    const { message, thread } = this.props;
-    const data = `
-      AccountID: ${message.accountId}
-      Message ID: ${message.id}
-      Message Metadata: ${JSON.stringify(message.pluginMetadata, null, '  ')}
-      Thread ID: ${thread.id}
-      Thread Metadata: ${JSON.stringify(thread.pluginMetadata, null, '  ')}
-    `;
-    require('@electron/remote').clipboard.writeText(data);
   };
 
   render() {

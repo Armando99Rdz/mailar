@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { MailspringAPIRequest } from 'mailspring-exports';
+import { MailArAPIRequest } from 'mailspring-exports';
 import { parseReply, requestJSON } from '../agent/client';
 import { AgentAPIError } from '../agent/types';
 import { declaredGrants } from '../consent';
@@ -126,7 +126,7 @@ function assertShareId(shareId: string) {
 /** The sharing routes on the identity server, beside the authoring proxy's. */
 export class ShareClient implements ShareTransport {
   constructor(
-    private root: () => string = () => MailspringAPIRequest.rootURLForServer('identity')
+    private root: () => string = () => MailArAPIRequest.rootURLForServer('identity')
   ) {}
 
   async publish(body: ShareRequest) {

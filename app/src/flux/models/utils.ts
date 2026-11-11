@@ -758,6 +758,19 @@ export function hueForString(str: string | null) {
   );
 }
 
+// Soft two-stop orb, same for the thread list, contacts, and the tray menu.
+// The highlight sits toward the top-left, like a lit sphere.
+export function avatarGradient(key: string | null | undefined) {
+  const source = (key || '').toLowerCase();
+  let hash = 0;
+  for (let i = 0; i < source.length; i += 1) {
+    hash = (hash * 33 + source.charCodeAt(i)) >>> 0;
+  }
+  const hue = hash % 360;
+  const hue2 = (hue + 38) % 360;
+  return `radial-gradient(circle at 32% 28%, rgba(255,255,255,0.55), rgba(255,255,255,0) 46%), linear-gradient(145deg, hsl(${hue}, 78%, 70%), hsl(${hue2}, 72%, 56%))`;
+}
+
 // Emails that nave no-reply or similar phrases in them are likely not a
 // human. As such it's not worth the cost to do a lookup on that person.
 //

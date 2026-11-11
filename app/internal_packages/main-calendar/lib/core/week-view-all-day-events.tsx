@@ -28,7 +28,7 @@ interface WeekViewAllDayEventsProps extends EventRendererProps {
   ) => void;
   /** Set of calendar IDs that are read-only */
   readOnlyCalendarIds: Set<string>;
-  /** See MailspringCalendarViewProps.paintVersion; a new value is what gets past the guard below. */
+  /** See MailArCalendarViewProps.paintVersion; a new value is what gets past the guard below. */
   paintVersion: string;
 }
 

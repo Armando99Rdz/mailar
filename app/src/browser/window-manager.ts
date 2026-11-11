@@ -2,7 +2,7 @@ import _ from 'underscore';
 import { app, BrowserWindow } from 'electron';
 import WindowLauncher from './window-launcher';
 import { localized } from '../intl';
-import MailspringWindow from './mailspring-window';
+import MailArWindow from './mailspring-window';
 
 const MAIN_WINDOW = 'default';
 const SPEC_WINDOW = 'spec';
@@ -16,7 +16,7 @@ export default class WindowManager {
   static CONTACTS_WINDOW = CONTACTS_WINDOW;
 
   initializeInBackground: boolean;
-  _windows: { [key: string]: MailspringWindow } = {};
+  _windows: { [key: string]: MailArWindow } = {};
   windowLauncher: WindowLauncher;
 
   constructor({
@@ -38,7 +38,7 @@ export default class WindowManager {
   }) {
     this.initializeInBackground = initializeInBackground;
 
-    const onCreatedHotWindow = (win: MailspringWindow) => {
+    const onCreatedHotWindow = (win: MailArWindow) => {
       this._registerWindow(win);
       this._didCreateNewWindow(win);
     };
@@ -66,7 +66,7 @@ export default class WindowManager {
       }
     });
 
-    const score = (win: MailspringWindow) =>
+    const score = (win: MailArWindow) =>
       win.loadSettings().mainWindow ? 1000 : win.browserWindow.id;
 
     return values.sort((a, b) => score(b) - score(a));
@@ -76,8 +76,8 @@ export default class WindowManager {
     return this.getOpenWindows().length;
   }
 
-  getVisibleWindows(): MailspringWindow[] {
-    const values: MailspringWindow[] = [];
+  getVisibleWindows(): MailArWindow[] {
+    const values: MailArWindow[] = [];
     Object.keys(this._windows).forEach((key) => {
       const win = this._windows[key];
       if (win.isVisible()) {
@@ -122,7 +122,7 @@ export default class WindowManager {
     return win;
   }
 
-  _registerWindow = (win: MailspringWindow) => {
+  _registerWindow = (win: MailArWindow) => {
     if (!win.windowKey) {
       throw new Error('WindowManager: You must provide a windowKey');
     }
@@ -136,7 +136,7 @@ export default class WindowManager {
     this._windows[win.windowKey] = win;
   };
 
-  _didCreateNewWindow = (win: MailspringWindow) => {
+  _didCreateNewWindow = (win: MailArWindow) => {
     win.browserWindow.on('closed', () => {
       delete this._windows[win.windowKey];
       if (this.windowLauncher.hotWindow === win) {
@@ -151,7 +151,7 @@ export default class WindowManager {
     global.application.applicationMenu.addWindow(win.browserWindow);
   };
 
-  _registeredKeyForWindow = (win: MailspringWindow) => {
+  _registeredKeyForWindow = (win: MailArWindow) => {
     for (const key of Object.keys(this._windows)) {
       const otherWin = this._windows[key];
       if (win === otherWin) {
@@ -225,7 +225,7 @@ export default class WindowManager {
   }
 
   quitWinLinuxIfNoWindows() {
-    // Typically, Mailspring stays running in the background on all platforms,
+    // Typically, MailAr stays running in the background on all platforms,
     // since it has a status icon you can use to quit it.
 
     // However, on Windows and Linux we /do/ want to quit if the app is somehow

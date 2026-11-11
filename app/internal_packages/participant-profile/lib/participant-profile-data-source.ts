@@ -1,5 +1,5 @@
-import { MailspringAPIRequest, Utils } from 'mailspring-exports';
-const { makeRequest } = MailspringAPIRequest;
+import { MailArAPIRequest, Utils } from 'mailspring-exports';
+const { makeRequest } = MailArAPIRequest;
 
 const CACHE_SIZE = 200;
 const CACHE_INDEX_KEY = 'pp-cache-v3-keys';

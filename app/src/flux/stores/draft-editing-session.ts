@@ -1,5 +1,5 @@
 import * as Immutable from 'immutable';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { Editor, Value, Block, Text } from 'slate';
 
 import RegExpUtils from '../../regexp-utils';
@@ -191,7 +191,7 @@ that display Draft objects or allow for interactive editing of Drafts.
 
 Section: Drafts
 */
-export class DraftEditingSession extends MailspringStore {
+export class DraftEditingSession extends MailArStore {
   static DraftChangeSet = DraftChangeSet;
 
   _draft: MessageWithEditorState = null;

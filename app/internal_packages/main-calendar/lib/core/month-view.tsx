@@ -2,7 +2,7 @@ import React from 'react';
 import moment, { Moment } from 'moment-timezone';
 import { InjectedComponentSet, SnapScroller, SnapScrollTarget } from 'mailspring-component-kit';
 import { CalendarDate, CalendarDateUtils } from 'mailspring-exports';
-import { MailspringCalendarViewProps } from './mailspring-calendar';
+import { MailArCalendarViewProps } from './mailspring-calendar';
 import { CalendarEventContainer } from './calendar-event-container';
 import { CalendarView } from './calendar-constants';
 import CalendarHeaderStore from './calendar-header-store';
@@ -34,11 +34,11 @@ interface MonthViewState {
   adjustedFocus: Moment | null;
 }
 
-export class MonthView extends React.Component<MailspringCalendarViewProps, MonthViewState> {
+export class MonthView extends React.Component<MailArCalendarViewProps, MonthViewState> {
   static displayName = 'MonthView';
 
   static getDerivedStateFromProps(
-    props: MailspringCalendarViewProps,
+    props: MailArCalendarViewProps,
     state: MonthViewState
   ): Partial<MonthViewState> | null {
     const { focusedMoment } = props;
@@ -53,7 +53,7 @@ export class MonthView extends React.Component<MailspringCalendarViewProps, Mont
   _topWeek: CalendarDate;
   _sub: EventRangeSubscription;
 
-  constructor(props: MailspringCalendarViewProps) {
+  constructor(props: MailArCalendarViewProps) {
     super(props);
     const month = monthStartDate(props.focusedMoment);
     this._topWeek = CalendarDateUtils.calendarDateFromUnix(

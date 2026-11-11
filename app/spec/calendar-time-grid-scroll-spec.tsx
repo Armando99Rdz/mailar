@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 import Rx from 'rx-lite';
 
 import { TimeGridView } from '../internal_packages/main-calendar/lib/core/time-grid-view';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarView } from '../internal_packages/main-calendar/lib/core/calendar-constants';
 import { calendarDateFromUnix, calendarDaysBetween } from '../src/calendar-date';
 import {
@@ -273,9 +273,9 @@ describe('TimeGridView scrolling', function () {
   });
 });
 
-describe('MailspringCalendar navigating Day and Week', function () {
+describe('MailArCalendar navigating Day and Week', function () {
   it('asks the grid, which knows which day is first in view', function () {
-    const cal: any = new MailspringCalendar({} as any);
+    const cal: any = new MailArCalendar({} as any);
     const navigate = jasmine.createSpy('navigate');
     cal._timeGrid = { current: { navigate } };
     for (const view of [CalendarView.DAY, CalendarView.WEEK]) {
@@ -287,7 +287,7 @@ describe('MailspringCalendar navigating Day and Week', function () {
   });
 
   it('holds the grid it asks', function () {
-    const cal: any = new MailspringCalendar({} as any);
+    const cal: any = new MailArCalendar({} as any);
     for (const view of [CalendarView.DAY, CalendarView.WEEK]) {
       cal.state = { ...cal.state, view };
       expect(cal._renderMainContent().ref).toBe(cal._timeGrid);

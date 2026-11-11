@@ -121,9 +121,14 @@ body.platform-win32 {
       background-color: @btn-emphasis-text-color;
     }
 
-    background: linear-gradient(to bottom, #6bb1f9 0%, #0a80ff 100%);
+    background: linear-gradient(
+      to bottom,
+      lighten(@btn-emphasis-bg-color, 14%) 0%,
+      @btn-emphasis-bg-color 100%
+    );
     box-shadow: none;
-    border: 1px solid darken(@btn-emphasis-bg-color, 7%);
+    border: 1px solid darken(@btn-emphasis-bg-color, 8%);
+    border-radius: 8px;
 
     &.btn-disabled {
       opacity: 0.4;
@@ -138,7 +143,11 @@ body.platform-win32 {
       left: -1px;
       position: absolute;
       z-index: -1;
-      background: linear-gradient(to bottom, #4ca2f9 0%, #015cff 100%);
+      background: linear-gradient(
+        to bottom,
+        lighten(@btn-emphasis-bg-color, 8%) 0%,
+        darken(@btn-emphasis-bg-color, 10%) 100%
+      );
     }
     &:active {
       background: -webkit-gradient(

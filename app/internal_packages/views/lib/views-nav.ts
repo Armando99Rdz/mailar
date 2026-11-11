@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { Actions, FocusedContentStore, WorkspaceStore } from 'mailspring-exports';
 
 /**
@@ -7,7 +7,7 @@ import { Actions, FocusedContentStore, WorkspaceStore } from 'mailspring-exports
  * thread the View opens is pushed over the View ("‹ <View name>"). Views are a section of the
  * main window reached from the nav rail, independent of the mailbox perspective.
  */
-class _ViewsNavStore extends MailspringStore {
+class _ViewsNavStore extends MailArStore {
   _viewId: string | null = null;
   _showing = false;
 

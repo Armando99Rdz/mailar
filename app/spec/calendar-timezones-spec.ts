@@ -1,5 +1,5 @@
 import ICAL from 'ical.js';
-import { Event as MailspringEvent } from '../src/flux/models/event';
+import { Event as MailArEvent } from '../src/flux/models/event';
 import { parseICSString } from '../src/calendar-utils';
 import * as ICSEventHelpers from '../src/ics-event-helpers';
 import { occurrencesForEvents } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
@@ -164,7 +164,7 @@ describe('expanding a zoned series', function () {
   // The engine stores the whole resource on every row, the exception's included, and computes
   // recurrenceStart itself; here it is an hour out, as a stale zone reading would leave it.
   const rows = () => [
-    new MailspringEvent({
+    new MailArEvent({
       id: 'master',
       accountId: 'account-1',
       calendarId: 'calendar-1',
@@ -172,7 +172,7 @@ describe('expanding a zoned series', function () {
       ics: SERIES,
       recurrenceStart: Date.parse('2026-07-01T17:00:00Z') / 1000,
     } as any),
-    new MailspringEvent({
+    new MailArEvent({
       id: 'exception',
       accountId: 'account-1',
       calendarId: 'calendar-1',

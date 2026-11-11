@@ -141,10 +141,10 @@ class NativeNotifications {
   }
 
   /**
-   * Get notification icon. Only works on linux, otherwise the Mailspring default icon wil be read
+   * Get notification icon. Only works on linux, otherwise the MailAr default icon wil be read
    * from resources.
    *
-   * Reading the icon name from the desktop file of Mailspring. If the icon is a name, reads the
+   * Reading the icon name from the desktop file of MailAr. If the icon is a name, reads the
    * icon theme directory for this icon. As the notification only works with PNG files, SVG files
    * must be converted to PNG
    *

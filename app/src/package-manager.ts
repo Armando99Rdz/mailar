@@ -44,7 +44,7 @@ export default class PackageManager {
 
     this.discoverPackages();
 
-    // If the user starts without a Mailspring ID and then links one, immediately turn on the
+    // If the user starts without a MailAr ID and then links one, immediately turn on the
     // packages that require it. (Note: When you log OUT we currently just reboot the app, so
     // this only goes one way, which is also convenient because unloading the built-in packages
     // hasn't been tested much.)
@@ -138,7 +138,7 @@ export default class PackageManager {
       // don't use AppEnv.reportError, I don't want to know about these.
       console.error(
         localized(
-          `This plugin or theme %@ does not list "mailspring" in it's package.json's "engines" field. Ask the developer to test the plugin with Mailspring and add it, or follow the instructions here: %@`,
+          `This plugin or theme %@ does not list "mailspring" in it's package.json's "engines" field. Ask the developer to test the plugin with MailAr and add it, or follow the instructions here: %@`,
           pkg.name,
           `https://getmailspring.com/docs/updating-an-n1-nylas-mail-theme-for-mailspring`
         )
@@ -200,7 +200,7 @@ export default class PackageManager {
       cancelId: 0,
       message: localized('Only install plugins from sources you trust'),
       detail: localized(
-        'Mailspring plugins run in the application and have access to your email data. Only install plugins from developers you trust.'
+        'MailAr plugins run in the application and have access to your email data. Only install plugins from developers you trust.'
       ),
     });
     if (response !== 1) {
@@ -254,7 +254,7 @@ export default class PackageManager {
       return callback(
         new Error(
           localized(
-            `The plugin or theme you selected has not been upgraded to support Mailspring. If you're the developer, update the package.json's engines field to include "mailspring".\n\nFor more information, see this migration guide: %@`,
+            `The plugin or theme you selected has not been upgraded to support MailAr. If you're the developer, update the package.json's engines field to include "mailspring".\n\nFor more information, see this migration guide: %@`,
             `https://getmailspring.com/docs/updating-an-n1-nylas-mail-theme-for-mailspring`
           )
         )

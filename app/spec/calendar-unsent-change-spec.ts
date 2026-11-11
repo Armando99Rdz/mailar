@@ -9,7 +9,7 @@ import {
   TaskQueue,
   WorkspaceStore,
 } from 'mailspring-exports';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { EventPanel } from '../internal_packages/main-calendar/lib/core/event-panel';
 import { TimedOccurrence } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 import { CalendarView } from '../internal_packages/main-calendar/lib/core/calendar-constants';
@@ -88,7 +88,7 @@ const droppedAt = (event: TimedOccurrence, start: number) =>
   }) as any;
 
 function calendarWith(selected: TimedOccurrence[]) {
-  const calendar: any = new MailspringCalendar({} as any);
+  const calendar: any = new MailArCalendar({} as any);
   calendar.setState = (update: object | ((state: object) => object | null)) =>
     Object.assign(calendar.state, typeof update === 'function' ? update(calendar.state) : update);
   calendar.state.selectedEvents = selected;

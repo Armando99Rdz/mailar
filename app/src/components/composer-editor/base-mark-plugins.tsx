@@ -66,7 +66,7 @@ function isNeutralDefaultColor(color: string) {
   // Near-black and near-white colors are commonly the source page's default text
   // color. Preserving them when pasting from a page using the opposite color scheme
   // can make the sent email unreadable (for example near-white text copied from a
-  // dark-themed web app, landing on a light message background). Mailspring does not
+  // dark-themed web app, landing on a light message background). MailAr does not
   // preserve source backgrounds, so these colors cannot be safely treated as
   // intentional formatting.
   return isNeutral && (lightest <= 32 || darkest >= 223);

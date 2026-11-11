@@ -11,9 +11,9 @@ export const GMAIL_CLIENT_ID =
 //
 // We could run a small web app that receives the code and exchanges it for the refresh token (storing this on the server), but
 // that web flow would still hand the resulting client secret to the desktop app, whose authenticity it can't verify.
-// (It can verify the connection is secure, but not that the receiving party is /this/ copy of Mailspring.)
+// (It can verify the connection is secure, but not that the receiving party is /this/ copy of MailAr.)
 //
-// Note: This is not a security risk for the end-user -- it just means someone could "fork" Mailspring and re-use it's
+// Note: This is not a security risk for the end-user -- it just means someone could "fork" MailAr and re-use it's
 // Client ID and Secret. For now, it seems we're on the honor code - Please don't do this.
 //
 export const GMAIL_CLIENT_SECRET =
@@ -61,7 +61,7 @@ export const O365_SCOPES = [
 // Sending through Microsoft Graph, which works where the tenant disables SMTP AUTH: Mail.Send,
 // plus Mail.ReadWrite for the draft Graph sends and to find its Sent Items copy. Requested with
 // O365_SCOPES unless the user chose to sign in without them, because their organization
-// requires admin approval for permissions Mailspring was not granted before.
+// requires admin approval for permissions MailAr was not granted before.
 export const O365_GRAPH_SEND_SCOPES = ['Mail.ReadWrite', 'Mail.Send'];
 
 // Re-created only at onboarding page load / auth session start because storing

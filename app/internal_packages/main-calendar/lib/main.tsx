@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron';
 import { Actions, WorkspaceStore, ComponentRegistry, localized } from 'mailspring-exports';
 import { NavRailItem } from 'mailspring-component-kit';
 import { QuickEventButton } from './quick-event-button';
-import { MailspringCalendar } from './core/mailspring-calendar';
+import { MailArCalendar } from './core/mailspring-calendar';
 import { CalendarSidebar } from './core/calendar-sidebar';
 import { CalendarHeader } from './core/calendar-header';
 import {
@@ -127,7 +127,7 @@ export function activate() {
   ComponentRegistry.register(CalendarSidebar, {
     location: WorkspaceStore.Location.CalendarSidebar,
   });
-  ComponentRegistry.register(MailspringCalendar, {
+  ComponentRegistry.register(MailArCalendar, {
     location: WorkspaceStore.Location.CalendarContent,
   });
   ComponentRegistry.register(QuickEventButton, {
@@ -145,7 +145,7 @@ export function activate() {
 
 export function deactivate() {
   ComponentRegistry.unregister(CalendarSidebar);
-  ComponentRegistry.unregister(MailspringCalendar);
+  ComponentRegistry.unregister(MailArCalendar);
   ComponentRegistry.unregister(QuickEventButton);
   ComponentRegistry.unregister(CalendarHeader);
   ComponentRegistry.unregister(CalendarNavRailItem);

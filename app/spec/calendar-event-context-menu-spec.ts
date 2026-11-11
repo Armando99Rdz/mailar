@@ -41,7 +41,7 @@ function menuFor(occ: any, readOnly = false) {
   return new CalendarEventContextMenu({
     occurrence: occ,
     readOnly,
-    // Mirrors how MailspringCalendar derives it: a writable calendar and a meeting of ours.
+    // Mirrors how MailArCalendar derives it: a writable calendar and a meeting of ours.
     onOpen: () => {},
     onDelete: () => {},
     onProposeNewTime: () => {},

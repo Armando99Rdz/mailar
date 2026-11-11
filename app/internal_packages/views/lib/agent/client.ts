@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { IdentityStore, MailspringAPIRequest } from 'mailspring-exports';
+import { IdentityStore, MailArAPIRequest } from 'mailspring-exports';
 import { AgentAPIError, AgentEvent, Example, ToolContent } from './types';
 
 /**
@@ -83,7 +83,7 @@ const RECONNECT_DELAYS_MS = [500, 1000, 2000, 5000, 10000];
 function authorization() {
   const identity = IdentityStore.identity();
   if (!identity) {
-    throw new AgentAPIError('Sign in with a Mailspring ID to build Views.', {
+    throw new AgentAPIError('Sign in with a MailAr ID to build Views.', {
       code: 'no_identity',
     });
   }
@@ -115,7 +115,7 @@ export function parseReply<T extends z.ZodType>(
 ): z.infer<T> {
   const parsed = schema.safeParse(json);
   if (!parsed.success) {
-    throw new AgentAPIError(`The Mailspring servers sent an unexpected reply to ${desc}.`, {
+    throw new AgentAPIError(`The MailAr servers sent an unexpected reply to ${desc}.`, {
       code: 'malformed_response',
     });
   }
@@ -145,7 +145,7 @@ export async function requestJSON(
       body: body ? JSON.stringify(body) : undefined,
     });
   } catch (err) {
-    throw new AgentAPIError(`Couldn't reach the Mailspring servers (${desc}).`, {
+    throw new AgentAPIError(`Couldn't reach the MailAr servers (${desc}).`, {
       code: 'offline',
     });
   }
@@ -156,7 +156,7 @@ export async function requestJSON(
 /** The authoring proxy on id.getmailspring.com (localhost:5101 when env is development). */
 export class AgentClient implements AgentTransport {
   constructor(
-    private root: () => string = () => MailspringAPIRequest.rootURLForServer('identity')
+    private root: () => string = () => MailArAPIRequest.rootURLForServer('identity')
   ) {}
 
   private request(method: 'GET' | 'POST', path: string, body?: object) {

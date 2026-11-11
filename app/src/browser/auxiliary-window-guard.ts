@@ -1,5 +1,5 @@
 import { app, shell } from 'electron';
-import { isMailspringWindowContents } from './mailspring-window';
+import { isMailArWindowContents } from './mailspring-window';
 
 const ExternalProtocols = ['http:', 'https:', 'mailto:'];
 
@@ -9,7 +9,7 @@ const UserInputWindowMs = 1000;
 const UserInputTypes = ['mouseDown', 'mouseUp', 'rawKeyDown', 'keyDown'];
 
 function isGuarded(contents: Electron.WebContents) {
-  return !isMailspringWindowContents(contents) && contents.getURL().startsWith('file:');
+  return !isMailArWindowContents(contents) && contents.getURL().startsWith('file:');
 }
 
 function openExternally(url: string) {
@@ -33,7 +33,7 @@ function openExternally(url: string) {
  *
  * These windows are created from renderers over @electron/remote, where a
  * `will-navigate` listener runs asynchronously and can no longer call preventDefault(),
- * so the guard has to be installed here. MailspringWindow installs its own.
+ * so the guard has to be installed here. MailArWindow installs its own.
  */
 export function guardAuxiliaryWindowNavigation() {
   app.on('web-contents-created', (_event, contents) => {

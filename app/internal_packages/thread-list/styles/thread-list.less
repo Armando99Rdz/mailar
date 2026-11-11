@@ -157,6 +157,9 @@
   }
 
   .participants {
+    display: flex;
+    align-items: center;
+    min-width: 0;
     font-size: @font-size-small;
     text-overflow: ellipsis;
     text-align: left;
@@ -165,6 +168,23 @@
     &.no-recipients {
       color: @text-color-very-subtle;
     }
+  }
+
+  .thread-avatar {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    margin-right: 8px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 10px;
+    font-weight: @font-weight-semi-bold;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
   }
 
   .details {
@@ -336,13 +356,13 @@
     margin: 9px 12px 0 12px;
   }
   .action.action-archive {
-    background: url(@archive-img) center no-repeat, @background-gradient;
+    background: url(@archive-img) center no-repeat, @list-hover-bg;
   }
   .action.action-trash {
-    background: url(@trash-img) center no-repeat, @background-gradient;
+    background: url(@trash-img) center no-repeat, @list-hover-bg;
   }
   .action.action-snooze {
-    background: url(@snooze-img) center no-repeat, @background-gradient;
+    background: url(@snooze-img) center no-repeat, @list-hover-bg;
   }
 }
 body.platform-win32 {
@@ -374,9 +394,9 @@ body.platform-win32 {
 .thread-list .list-item:hover .list-column-HoverActions .inner {
   background-image: linear-gradient(
     to right,
-    fade(darken(@list-bg, 5%), 0%) 0%,
-    darken(@list-bg, 5%) 50%,
-    darken(@list-bg, 5%) 100%
+    fade(@list-hover-bg, 0%) 0%,
+    @list-hover-bg 12%,
+    @list-hover-bg 100%
   );
 }
 
@@ -384,7 +404,7 @@ body.platform-win32 {
   background-image: linear-gradient(
     to right,
     rgb(from @list-selected-bg r g b / 0) 0%,
-    @list-selected-bg 50%,
+    @list-selected-bg 12%,
     @list-selected-bg 100%
   );
 }
@@ -393,7 +413,7 @@ body.platform-win32 {
   background-image: linear-gradient(
     to right,
     rgb(from @list-focused-bg r g b / 0) 0%,
-    @list-focused-bg 50%,
+    @list-focused-bg 12%,
     @list-focused-bg 100%
   );
   .action {

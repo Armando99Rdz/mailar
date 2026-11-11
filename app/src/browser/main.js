@@ -34,6 +34,12 @@ console.inspect = function consoleInspect(val) {
 };
 
 const { app, session, protocol } = require('electron');
+
+// The product name is MailAr. safeStorage names its keychain item from
+// app.name, and accounts already saved use "Mailspring Safe Storage".
+// The config directory below is also Mailspring-dev. Keep this process
+// name so those passwords still open; every visible label says MailAr.
+app.setName('Mailspring');
 const path = require('path');
 const { developerToolsAvailable } = require('../developer-tools');
 
@@ -91,7 +97,7 @@ const declareOptions = argv => {
   const optimist = require('optimist');
   const options = optimist(argv);
   options.usage(
-    `Mailspring\n\nUsage: mailspring [options] [recipient] [attachment]\n\nRun Mailspring: The open source extensible email client\n\n\`mailspring mailto:johndoe@example.com\` to compose an e-mail to johndoe@example.com.\n\`mailspring ./attachment.txt\` to compose an e-mail with a text file attached.\n\`mailspring --dev\` to start the client in dev mode.\n\`mailspring --test\` to run unit tests.`
+    `MailAr\n\nUsage: mailspring [options] [recipient] [attachment]\n\nRun MailAr: The open source extensible email client\n\n\`mailspring mailto:johndoe@example.com\` to compose an e-mail to johndoe@example.com.\n\`mailspring ./attachment.txt\` to compose an e-mail with a text file attached.\n\`mailspring --dev\` to start the client in dev mode.\n\`mailspring --test\` to run unit tests.`
   );
   options
     .alias('d', 'dev')
@@ -107,7 +113,7 @@ const declareOptions = argv => {
       'safe',
       'Do not load packages from the settings `packages` or `dev/packages` folders.'
     );
-  // The options --enable-crashpad and --allow-file-access-from-files are added to the command line options by electron when opening a second instance of Mailspring.
+  // The options --enable-crashpad and --allow-file-access-from-files are added to the command line options by electron when opening a second instance of MailAr.
   // If they are not defined as boolean options here, they will "swallow" every argument that is passed after them. This leads to the "Send To" functionality not working
   // if mailspring is already running.
   options.boolean('enable-crashpad');
@@ -124,7 +130,7 @@ const declareOptions = argv => {
   options
     .alias('c', 'config-dir-path')
     .string('c')
-    .describe('c', 'Override the path to the Mailspring configuration directory');
+    .describe('c', 'Override the path to the MailAr configuration directory');
   options
     .alias('s', 'spec-directory')
     .string('s')
@@ -143,7 +149,7 @@ const declareOptions = argv => {
   options
     .alias('b', 'background')
     .boolean('b')
-    .describe('b', 'Start Mailspring in the background');
+    .describe('b', 'Start MailAr in the background');
   return options;
 };
 
@@ -261,8 +267,8 @@ const handleStartupEventWithSquirrel = () => {
       // Squirrel runs the NEW version with this flag after applying an update.
       // Per Squirrel.Windows conventions, we should update shortcuts and exit
       // quickly — NOT restart the app. The restart happens later when the user
-      // triggers "Install Update" via the UI, which calls restartMailspring().
-      // Previously this called restartMailspring() which spawned a new instance
+      // triggers "Install Update" via the UI, which calls restartMailAr().
+      // Previously this called restartMailAr() which spawned a new instance
       // that would be killed by requestSingleInstanceLock() (the original app
       // is still running), wasting time and risking Squirrel's 15s timeout.
       WindowsUpdater.handleSquirrelUpdated(app);
@@ -323,8 +329,8 @@ const start = () => {
   }
 
   // On Windows, register the AppUserModelId with a display name so notifications
-  // show "Mailspring" instead of "com.squirrel.mailspring.mailspring".
-  // Also register mailto: protocol handler so Windows knows Mailspring can handle
+  // show "MailAr" instead of "com.squirrel.mailspring.mailspring".
+  // Also register mailto: protocol handler so Windows knows MailAr can handle
   // mailto: links (this doesn't make it the default, just registers it as an option).
   // This handles existing installations and ensures registration completes even if
   // the Squirrel install hook's detached processes didn't finish in time.
@@ -398,6 +404,7 @@ const start = () => {
   app.on('open-url', onOpenUrlBeforeReady);
   app.on('open-file', onOpenFileBeforeReady);
   app.on('ready', () => {
+    app.setAboutPanelOptions({ applicationName: 'MailAr', applicationVersion: app.getVersion() });
     app.removeListener('open-file', onOpenFileBeforeReady);
     app.removeListener('open-url', onOpenUrlBeforeReady);
 

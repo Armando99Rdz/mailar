@@ -1,5 +1,5 @@
 import React from 'react';
-import { localized, MailspringAPIRequest } from 'mailspring-exports';
+import { localized, MailArAPIRequest } from 'mailspring-exports';
 import { CopyButton, RetinaImg } from 'mailspring-component-kit';
 
 function buildShareHTML(htmlEl: HTMLElement, styleEl: HTMLStyleElement) {
@@ -12,8 +12,8 @@ function buildShareHTML(htmlEl: HTMLElement, styleEl: HTMLStyleElement) {
     <head>
     <meta charset="utf-8"> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="author" content="Mailspring">
-    <title>Mailspring Activity</title>
+    <meta name="author" content="MailAr">
+    <title>MailAr Activity</title>
     <style type="text/css">
     body {
       font-family: sans-serif;
@@ -75,7 +75,7 @@ export default class ShareButton extends React.Component<
       loading: true,
     });
 
-    const link = await MailspringAPIRequest.postStaticPage({
+    const link = await MailArAPIRequest.postStaticPage({
       key: `activity-${Date.now()}`,
       html: buildShareHTML(
         document.querySelector('.activity-dashboard'),

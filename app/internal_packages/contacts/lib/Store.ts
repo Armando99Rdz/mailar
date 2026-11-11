@@ -7,11 +7,11 @@ import {
   MutableQuerySubscription,
   localized,
 } from 'mailspring-exports';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { ListTabular } from 'mailspring-component-kit';
 import { displayNameForContact } from './ContactDisplayName';
 
-class ContactsWindowStore extends MailspringStore {
+class ContactsWindowStore extends MailArStore {
   _perspective: ContactsPerspective = { type: 'unified' };
   _listSource = new ListTabular.DataSource.DumbArrayDataSource<Contact>();
 

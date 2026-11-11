@@ -13,7 +13,7 @@ import path from 'path';
 //   * <config-dir>/packages
 //   * RESOURCE_PATH/node_modules
 //
-export default class MailspringProtocolHandler {
+export default class MailArProtocolHandler {
   loadPaths: string[] = [];
 
   constructor({ configDirPath, resourcePath, safeMode }) {
@@ -26,7 +26,7 @@ export default class MailspringProtocolHandler {
     this.registerProtocol();
   }
 
-  // Creates the 'Mailspring' custom protocol handler.
+  // Creates the 'MailAr' custom protocol handler.
   registerProtocol() {
     const scheme = 'mailspring';
 

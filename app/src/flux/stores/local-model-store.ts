@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import type { LocalAIAnswer, LocalAIRequest, LocalAIStatus } from '../../browser/local-ai-service';
 import type {
   LocalModelProvider,
@@ -26,7 +26,7 @@ export type {
  * starts the first download when no model is available yet. Build prompts with
  * `chatPrompt` (local-model-prompt.ts), which both backends understand.
  */
-class LocalModelStore extends MailspringStore {
+class LocalModelStore extends MailArStore {
   private _status: LocalModelStatus | null = null;
   private _listening = false;
 

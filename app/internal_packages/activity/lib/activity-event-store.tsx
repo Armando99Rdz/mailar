@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import {
   localized,
   Actions,
@@ -14,7 +14,7 @@ import ActivityDataSource from './activity-data-source';
 import { configForPluginId } from './plugin-helpers';
 import { ActivityEvent, eventsForMessage } from './activity-events';
 
-class ActivityEventStore extends MailspringStore {
+class ActivityEventStore extends MailArStore {
   _throttlingTimestamps = {};
   _actions: ActivityEvent[] = [];
   _unreadCount = 0;

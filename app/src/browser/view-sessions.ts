@@ -400,7 +400,7 @@ let emailColorsSource: string | null = null;
 // EmailFrame does, so it runs the same module rather than a copy. It is pure DOM code; in a
 // packaged build it has already been compiled to CommonJS. This reaches into the message-list
 // package by path, and views/runtime/mailspring-view.js reads the result off
-// `window.MailspringEmailColors`; email-color-detection.ts notes both dependents.
+// `window.MailArEmailColors`; email-color-detection.ts notes both dependents.
 function emailColorsScript() {
   if (emailColorsSource) return emailColorsSource;
   const base = path.join(
@@ -419,7 +419,7 @@ function emailColorsScript() {
   } else {
     code = fs.readFileSync(`${base}.js`, 'utf8');
   }
-  emailColorsSource = `(function () {\nvar exports = {};\nvar module = { exports: exports };\n${code}\nwindow.MailspringEmailColors = module.exports;\n})();\n`;
+  emailColorsSource = `(function () {\nvar exports = {};\nvar module = { exports: exports };\n${code}\nwindow.MailArEmailColors = module.exports;\n})();\n`;
   return emailColorsSource;
 }
 
@@ -653,7 +653,7 @@ export function prepareViewWebview(
     nodeIntegrationInWorker: false,
     plugins: false,
     experimentalFeatures: false,
-    // alert()/confirm() would draw native dialogs titled "Mailspring" over the app, which
+    // alert()/confirm() would draw native dialogs titled "MailAr" over the app, which
     // a View could use to impersonate it.
     disableDialogs: true,
     safeDialogs: true,

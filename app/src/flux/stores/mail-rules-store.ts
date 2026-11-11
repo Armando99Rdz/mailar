@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import _ from 'underscore';
 import * as Utils from '../models/utils';
 import * as Actions from '../actions';
@@ -43,7 +43,7 @@ export interface MailRule extends Template {
   ];
 }
 
-class MailRulesStore extends MailspringStore {
+class MailRulesStore extends MailArStore {
   _autoSince = Number(window.localStorage.getItem(AutoSinceJSONKey) || 0);
   _reprocessing: {
     [accountId: string]: {
@@ -61,7 +61,7 @@ class MailRulesStore extends MailspringStore {
     /* This is a bit strange - if the user has mail rules enabled, they only
     expect rules to be applied to "new" mail. Not "new" mail as in just created,
     since that includes old mail we're syncing for the first time. Just "new"
-    mail that has arrived since they last ran Mailspring. So, we keep a date. */
+    mail that has arrived since they last ran MailAr. So, we keep a date. */
     if (this._autoSince === 0) {
       window.localStorage.setItem(AutoSinceJSONKey, `${Date.now()}`);
       this._autoSince = Date.now();

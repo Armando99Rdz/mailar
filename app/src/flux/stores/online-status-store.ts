@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { ipcRenderer } from 'electron';
 import _ from 'underscore';
 
@@ -8,7 +8,7 @@ const MTC_LATE_THRESHOLD = 1000 * 60;
 // maybe more in the future. We currently store most sync /progress/ on
 // the individual folders in the account (FolderSyncProgressStore)
 
-class OnlineStatusStore extends MailspringStore {
+class OnlineStatusStore extends MailArStore {
   _interval = null;
   _offlineProcesses: { [accountId: string]: boolean } = {};
   _timeoutTargetTime = null;

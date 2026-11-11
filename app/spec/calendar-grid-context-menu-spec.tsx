@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import {
   CalendarEventArgs,
   CalendarEventContainer,
@@ -112,7 +112,7 @@ describe('the grid menu', function () {
     ({ time, mouseEvent: { clientX: 10, clientY: 20 }, containerType: 'event-column' }) as any;
 
   function calendar() {
-    const cal: any = new MailspringCalendar({} as any);
+    const cal: any = new MailArCalendar({} as any);
     spyOn(cal, '_showGridMenu');
     spyOn(cal, '_createEventAt');
     return cal;

@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import { Contact } from '../models/contact';
 import RegExpUtils from '../../regexp-utils';
 import DatabaseStore from './database-store';
@@ -13,7 +13,7 @@ with additional actions.
 
 Section: Stores
 */
-class ContactStore extends MailspringStore {
+class ContactStore extends MailArStore {
   async searchContactGroups(_search: string) {
     const search = _search.toLowerCase();
 

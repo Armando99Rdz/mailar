@@ -150,13 +150,24 @@ function renderSpans(
   return spans;
 }
 
+// Same gradient the tray menu and contacts use.
+function avatarFor(contact: Contact) {
+  return Utils.avatarGradient(contact.email || contact.name || '');
+}
+
 const ThreadListParticipants: React.FC<{ thread: ThreadWithMessagesMetadata }> = React.memo(
-  ({ thread }) => (
-    <div className="participants" dir="auto">
-      <AccountColorBar accountId={thread.accountId} />
-      {renderSpans(thread, getTokens(thread))}
-    </div>
-  ),
+  ({ thread }) => {
+    const tokens = getTokens(thread);
+    const primary = tokens.find((token) => token.contact);
+    const avatar = primary && primary.contact ? avatarFor(primary.contact) : null;
+    return (
+      <div className="participants" dir="auto">
+        {avatar && <span className="thread-avatar" style={{ background: avatar }} aria-hidden />}
+        <AccountColorBar accountId={thread.accountId} />
+        {renderSpans(thread, tokens)}
+      </div>
+    );
+  },
   (prev, next) => prev.thread === next.thread
 );
 ThreadListParticipants.displayName = 'ThreadListParticipants';

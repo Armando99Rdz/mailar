@@ -9,7 +9,7 @@ import ReactDOM from 'react-dom';
 import moment from 'moment';
 import * as CalendarDateUtils from '../src/calendar-date';
 import { Calendar } from '../src/flux/models/calendar';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import FocusedMomentStore from '../internal_packages/main-calendar/lib/core/focused-moment-store';
 import { TimeGridView } from '../internal_packages/main-calendar/lib/core/time-grid-view';
 import { DEFAULT_TIMED_EVENT_DURATION_SECONDS } from '../internal_packages/main-calendar/lib/core/calendar-constants';
@@ -124,7 +124,7 @@ describe('drawing a new event on empty grid space', function () {
 
   // The calendar as the grid sees it: one writable calendar, setState landing in state.
   beforeEach(function () {
-    cal = new MailspringCalendar({} as any);
+    cal = new MailArCalendar({} as any);
     cal.state = {
       ...cal.state,
       calendarsLoaded: true,
@@ -312,7 +312,7 @@ describe('a new event in the panel', function () {
   // Stubbed, so a leave that wrongly reaches the held-change dialog fails rather than waits.
   beforeEach(function () {
     dialog = spyOn(UnsentChangeDialog, 'showUnsentChangeDialog').andReturn('discard');
-    cal = new MailspringCalendar({} as any);
+    cal = new MailArCalendar({} as any);
     cal.state = {
       ...cal.state,
       calendarsLoaded: true,

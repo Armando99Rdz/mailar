@@ -6,7 +6,7 @@ import {
   IpcMainInvokeEvent,
 } from 'electron';
 import path from 'path';
-import { isMailspringWindowContents } from './mailspring-window';
+import { isMailArWindowContents } from './mailspring-window';
 import { cacheKey, DOWNLOADABLE_MODEL_VERSION, ModelSpec } from './local-ai-model';
 import {
   LocalModelController,
@@ -292,7 +292,7 @@ class LocalAIService {
     if (!modelPath) return Promise.reject(new Error('The local model is not downloaded.'));
 
     const worker = utilityProcess.fork(unpacked(path.join(__dirname, 'local-ai-worker.js')), [], {
-      serviceName: 'Mailspring Local AI',
+      serviceName: 'MailAr Local AI',
     });
     this.worker = worker;
     worker.on('message', ({ id, result, error }) => {
@@ -333,8 +333,8 @@ class LocalAIService {
 export type LocalAIStatus = ReturnType<LocalAIService['status']>;
 
 function trusted(event: IpcMainInvokeEvent) {
-  if (!isMailspringWindowContents(event.sender)) {
-    throw new Error('Local AI is only available to Mailspring windows.');
+  if (!isMailArWindowContents(event.sender)) {
+    throw new Error('Local AI is only available to MailAr windows.');
   }
 }
 
@@ -395,7 +395,7 @@ function modelSpecOverride(config: ConfigLike, devMode: boolean): ModelSpec | un
 
 function broadcast(channel: string, payload: any) {
   for (const win of BrowserWindow.getAllWindows()) {
-    if (!win.isDestroyed() && isMailspringWindowContents(win.webContents)) {
+    if (!win.isDestroyed() && isMailArWindowContents(win.webContents)) {
       win.webContents.send(channel, payload);
     }
   }

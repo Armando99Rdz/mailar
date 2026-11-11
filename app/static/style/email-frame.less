@@ -84,6 +84,11 @@
     }
   }
 
+  #inbox-html-wrapper.darwin,
+  #inbox-plain-wrapper.darwin {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
   #inbox-html-wrapper.platform-win32 {
     font-family: system-ui;
 
@@ -161,6 +166,10 @@
     // themes to be able to override with monospace, but not have that be the
     // default for normal people.
     font-family: 'Nylas-Pro', 'Helvetica', 'Lucidia Grande', sans-serif;
+
+    .darwin & {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
     white-space: pre-wrap;
     word-wrap: break-word;
   }

@@ -135,7 +135,7 @@ export default class OAuthSignInPage extends React.Component<
       }
       if (authError) {
         this._onAuthorizationDeclined(authError);
-        response.end(localized('Sign-in was not completed. Return to Mailspring to continue.'));
+        response.end(localized('Sign-in was not completed. Return to MailAr to continue.'));
         return;
       }
       this._onReceivedCode(code);
@@ -146,7 +146,7 @@ export default class OAuthSignInPage extends React.Component<
       AppEnv.showErrorDialog({
         title: localized('Unable to Start Local Server'),
         message: localized(
-          `To listen for the Gmail Oauth response, Mailspring needs to start a webserver on port ${LOCAL_SERVER_PORT}. Please go back and try linking your account again. If this error persists, use the IMAP/SMTP option with a Gmail App Password.\n\n%@`,
+          `To listen for the Gmail Oauth response, MailAr needs to start a webserver on port ${LOCAL_SERVER_PORT}. Please go back and try linking your account again. If this error persists, use the IMAP/SMTP option with a Gmail App Password.\n\n%@`,
           err
         ),
       });
@@ -172,7 +172,7 @@ export default class OAuthSignInPage extends React.Component<
       // The engine advises reconnecting to review the certificate, which OAuth accounts don't
       // offer: Gmail and Microsoft always present a trusted certificate.
       errorMessage = localized(
-        `Mailspring can't verify the server for %@. Its certificate is not trusted, which can happen when antivirus or network software intercepts secure connections.`,
+        `MailAr can't verify the server for %@. Its certificate is not trusted, which can happen when antivirus or network software intercepts secure connections.`,
         this.props.serviceName
       );
     }
@@ -252,7 +252,7 @@ export default class OAuthSignInPage extends React.Component<
       return (
         <div>
           <h2>{localized('Successfully connected to %@!', this.props.serviceName)}</h2>
-          <h3>{localized('Adding your account to Mailspring…')}</h3>
+          <h3>{localized('Adding your account to MailAr…')}</h3>
         </div>
       );
     }

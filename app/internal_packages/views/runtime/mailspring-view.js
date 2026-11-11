@@ -652,7 +652,7 @@
         // Same decision as the reading pane: transparent over the theme, or a white page for
         // emails that paint their own backgrounds or would be illegible.
         const wrapper = doc.getElementById('inbox-html-wrapper');
-        const colors = window.MailspringEmailColors;
+        const colors = window.MailArEmailColors;
         if (wrapper && colors && !wrapper.dataset.colorsPrepared) {
           wrapper.dataset.colorsPrepared = 'true';
           doc.body.classList.toggle('adapts-to-dark-mode', colors.adaptsToDarkMode(wrapper));
@@ -878,7 +878,7 @@
     startHeightReporting();
   }
 
-  window.MailspringView = {
+  window.MailArView = {
     // Live reads
     useThreads,
     useMessages,
@@ -987,7 +987,7 @@
     return { ...state, connect };
   }
 
-  Object.assign(window.MailspringView, { credentialFetch, useCredentialStatus });
+  Object.assign(window.MailArView, { credentialFetch, useCredentialStatus });
 
   // ── Calendars ─────────────────────────────────────────────────────────────
   // Calendar reads and writes. Writes that would email other people
@@ -1034,7 +1034,7 @@
   ui.showEvent = (eventId) => call('ui.showEvent', { id: eventId });
   ui.showDate = (date) => call('ui.showDate', { date: new Date(date).toISOString() });
 
-  Object.assign(window.MailspringView, {
+  Object.assign(window.MailArView, {
     useCalendars,
     getCalendars,
     useFreeBusy,

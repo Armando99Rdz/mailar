@@ -14,7 +14,7 @@ import { NavRailItem } from 'mailspring-component-kit';
 
 import PreferencesRoot from './preferences-root';
 
-// Names the Mailspring ID, or the first account while signed out of it.
+// Names the MailAr ID, or the first account while signed out of it.
 function whoMenuItems(): Electron.MenuItemConstructorOptions[] {
   const identity = IdentityStore.identity();
   const account = AccountStore.accounts()[0];

@@ -8,7 +8,7 @@ import {
 } from 'mailspring-exports';
 import { Calendar } from '../src/flux/models/calendar';
 import * as CalendarHelpers from '../internal_packages/main-calendar/lib/core/calendar-helpers';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 
 const { defaultCalendarForNewEvent } = CalendarHelpers;
 
@@ -98,7 +98,7 @@ describe("new events start in Mail's sending account", function () {
 
   beforeEach(function () {
     sendFrom(accountIds()[0]);
-    cal = new MailspringCalendar({} as any);
+    cal = new MailArCalendar({} as any);
     cal.state = {
       ...cal.state,
       calendarsLoaded: true,

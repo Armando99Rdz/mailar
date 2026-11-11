@@ -9,7 +9,7 @@ import { MonthView } from '../internal_packages/main-calendar/lib/core/month-vie
 import { TimeGridView } from '../internal_packages/main-calendar/lib/core/time-grid-view';
 import { CalendarDataSource } from '../internal_packages/main-calendar/lib/core/calendar-data-source';
 import Rx from 'rx-lite';
-import { MailspringCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendar } from '../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import { CalendarView } from '../internal_packages/main-calendar/lib/core/calendar-constants';
 import { calendarViewProps } from './fixtures/calendar-view-props';
 
@@ -93,13 +93,13 @@ describe('CalendarHeaderStore', function () {
 
   it("hands over the calendar's controls as it mounts, changes and unmounts", function () {
     spyOn(AppEnv.config, 'set');
-    spyOn(MailspringCalendar.prototype, '_subscribeToCalendars').andReturn({ dispose() {} });
+    spyOn(MailArCalendar.prototype, '_subscribeToCalendars').andReturn({ dispose() {} });
     spyOn(CalendarDataSource.prototype, 'buildObservable').andReturn(
       Rx.Observable.just({ events: [] })
     );
     spyOn(AppEnv.mailsyncBridge, 'sendSyncCalendarNow');
     let calendar: any;
-    mounted(<MailspringCalendar ref={(c) => (calendar = c)} />, () => {
+    mounted(<MailArCalendar ref={(c) => (calendar = c)} />, () => {
       expect(CalendarHeaderStore.calendarOptions().agendaOpen).toBe(true);
       calendar.onToggleAgenda();
       expect(CalendarHeaderStore.calendarOptions().agendaOpen).toBe(false);
@@ -109,7 +109,7 @@ describe('CalendarHeaderStore', function () {
 
   it("takes the calendar's view and agenda state, redrawing when they change", function () {
     spyOn(AppEnv.config, 'set');
-    const calendar: any = new MailspringCalendar({} as any);
+    const calendar: any = new MailArCalendar({} as any);
     calendar.setState = (update: object) => Object.assign(calendar.state, update);
     calendar.state.view = CalendarView.WEEK;
     calendar._publishCalendarOptions();

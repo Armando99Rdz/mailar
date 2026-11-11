@@ -40,7 +40,7 @@ class OpenTrackingMessagePopover extends React.Component<{
         {recipientIsUnknowable(this.props.message, this.props.openMetadata) && (
           <div className="unattributed-note">
             {localized(
-              'This message was sent to everyone at once, so Mailspring cannot tell which recipient opened it.'
+              'This message was sent to everyone at once, so MailAr cannot tell which recipient opened it.'
             )}
           </div>
         )}

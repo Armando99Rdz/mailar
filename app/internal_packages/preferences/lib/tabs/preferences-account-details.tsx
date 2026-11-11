@@ -210,7 +210,7 @@ class PreferencesAccountDetails extends Component<
     try {
       const logs = await AppEnv.mailsyncBridge.tailClientLog(id);
       const result = [
-        `Mailspring Version: ${AppEnv.getVersion()}`,
+        `MailAr Version: ${AppEnv.getVersion()}`,
         `Platform: ${process.platform}`,
         `Account State: ${syncState}`,
         `Account Provider: ${provider}`,
@@ -266,7 +266,7 @@ class PreferencesAccountDetails extends Component<
   _authFailureMessage(account: Account) {
     if (!account.hasCertificateSyncError()) {
       return localized(
-        `Mailspring can no longer authenticate with %@. The password or authentication may have changed.`,
+        `MailAr can no longer authenticate with %@. The password or authentication may have changed.`,
         account.emailAddress
       );
     }
@@ -274,12 +274,12 @@ class PreferencesAccountDetails extends Component<
     // the user to review and accept: something on the network is intercepting the connection.
     if (account.usesOAuth()) {
       return localized(
-        `Mailspring can't verify the server for %@. Its certificate is not trusted, which can happen when antivirus or network software intercepts secure connections.`,
+        `MailAr can't verify the server for %@. Its certificate is not trusted, which can happen when antivirus or network software intercepts secure connections.`,
         account.emailAddress
       );
     }
     return localized(
-      `Mailspring can't verify the server for %@. Its certificate is not trusted, or has changed since you accepted it. Reconnect to review it.`,
+      `MailAr can't verify the server for %@. Its certificate is not trusted, or has changed since you accepted it. Reconnect to review it.`,
       account.emailAddress
     );
   }
@@ -296,7 +296,7 @@ class PreferencesAccountDetails extends Component<
       case Account.SYNC_STATE_ERROR:
         return this._renderErrorDetail(
           localized(
-            `Mailspring encountered errors syncing this account. Crash reports have been sent to the Mailspring team and we'll work to fix these errors in the next release.`
+            `MailAr encountered errors syncing this account. Crash reports have been sent to the MailAr team and we'll work to fix these errors in the next release.`
           ),
           [
             { text: localized('Reconnect'), action: this._onReconnect },
@@ -309,7 +309,7 @@ class PreferencesAccountDetails extends Component<
         }
         return this._renderErrorDetail(
           localized(
-            `Mailspring can't connect to %@ and will keep retrying. This usually means your computer is offline. If your internet connection is working, your mail provider may be having trouble.`,
+            `MailAr can't connect to %@ and will keep retrying. This usually means your computer is offline. If your internet connection is working, your mail provider may be having trouble.`,
             account.settings.imap_host || account.emailAddress
           ),
           [

@@ -194,7 +194,7 @@ export default class AutoUpdateManager extends EventEmitter {
       icon: this.dialogIcon(),
       message: localized('No update available.'),
       title: localized('No update available.'),
-      detail: localized(`You're running the latest version of Mailspring (%@).`, this.version),
+      detail: localized(`You're running the latest version of MailAr (%@).`, this.version),
     });
   };
 

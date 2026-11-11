@@ -1,6 +1,6 @@
 import moment from 'moment';
 import Rx from 'rx-lite';
-import { MailspringCalendarViewProps } from '../../internal_packages/main-calendar/lib/core/mailspring-calendar';
+import { MailArCalendarViewProps } from '../../internal_packages/main-calendar/lib/core/mailspring-calendar';
 import {
   EventOccurrence,
   coveredDates,
@@ -10,8 +10,8 @@ const NO_CALENDARS: string[] = [];
 
 /** Props a calendar view renders with in a spec, no events and every handler a no-op. */
 export function calendarViewProps(
-  overrides: Partial<MailspringCalendarViewProps> = {}
-): MailspringCalendarViewProps {
+  overrides: Partial<MailArCalendarViewProps> = {}
+): MailArCalendarViewProps {
   return {
     dataSource: { buildObservable: () => Rx.Observable.just({ events: [] }) } as any,
     disabledCalendars: NO_CALENDARS,

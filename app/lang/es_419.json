@@ -1,6 +1,9 @@
 {
   "%1$@ of %2$@": "%1$@ de %2$@",
   "%@ others": "%@ personas más",
+  "+%@ more unread": "+%@ más sin leer",
+  "No unread messages": "No hay mensajes sin leer",
+  "Unread mail": "Correos no leídos",
   "(No Recipients)": "(Sin destinatario)",
   "(No Subject)": "(Sin asunto)",
   "... and much more!": "... ¡y aún hay más!",

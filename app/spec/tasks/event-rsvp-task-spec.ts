@@ -73,9 +73,9 @@ describe('EventRSVPTask.forReplying', function () {
       icsRSVPStatus: status,
     });
 
-  it("names Mailspring as the reply's PRODID, not the organizer's app", function () {
+  it("names MailAr as the reply's PRODID, not the organizer's app", function () {
     const { ics } = reply();
-    expect(ics).toContain('PRODID:-//Mailspring//Calendar//EN');
+    expect(ics).toContain('PRODID:-//MailAr//Calendar//EN');
     expect(ics).not.toContain('PRODID:-//Test//Test//EN');
   });
 

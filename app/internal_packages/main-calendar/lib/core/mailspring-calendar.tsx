@@ -123,7 +123,7 @@ export interface EventRendererProps {
   onEventFocused: (event: EventOccurrence) => void;
 }
 
-export interface MailspringCalendarViewProps extends EventRendererProps {
+export interface MailArCalendarViewProps extends EventRendererProps {
   dataSource: CalendarDataSource;
   disabledCalendars: string[];
   focusedMoment: Moment;
@@ -170,11 +170,11 @@ function savedView(): CalendarView {
 }
 
 /*
- * Mailspring Calendar
+ * MailAr Calendar
  */
-interface MailspringCalendarProps {}
+interface MailArCalendarProps {}
 
-interface MailspringCalendarState {
+interface MailArCalendarState {
   view: CalendarView;
   agendaOpen: boolean;
   selectedEvents: EventOccurrence[];
@@ -192,13 +192,13 @@ interface MailspringCalendarState {
   heldInGridEventId: string | null;
 }
 
-export class MailspringCalendar extends React.Component<
-  MailspringCalendarProps,
-  MailspringCalendarState
+export class MailArCalendar extends React.Component<
+  MailArCalendarProps,
+  MailArCalendarState
 > {
   /** Gives each event made in the panel its own id, so the panel remounts for the next one. */
   _newEventSerial = 0;
-  static displayName = 'MailspringCalendar';
+  static displayName = 'MailArCalendar';
 
   static containerStyles = {
     height: '100%',
@@ -225,7 +225,7 @@ export class MailspringCalendar extends React.Component<
   _timeGrid = React.createRef<TimeGridView>();
   _eventPanel = React.createRef<EventPanel>();
 
-  constructor(props: MailspringCalendarProps) {
+  constructor(props: MailArCalendarProps) {
     super(props);
     this.state = {
       calendars: [],
@@ -1413,7 +1413,7 @@ export class MailspringCalendar extends React.Component<
     return this.state.calendarsLoaded && this.state.calendars.length === 0;
   }
 
-  _viewProps(): MailspringCalendarViewProps {
+  _viewProps(): MailArCalendarViewProps {
     return {
       paintVersion: `${getColorCacheVersion()}-${this.state.themeVersion}`,
       dataSource: this._dataSource,

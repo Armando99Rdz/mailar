@@ -57,7 +57,7 @@ lazyLoadWithGetter(`isRTL`, () => require('../intl').isRTL);
 lazyLoad(`Actions`, 'flux/actions');
 
 // API Endpoints
-lazyLoad(`MailspringAPIRequest`, 'flux/mailspring-api-request');
+lazyLoad(`MailArAPIRequest`, 'flux/mailspring-api-request');
 lazyLoad(`MailsyncProcess`, 'mailsync-process');
 // The Database
 lazyLoad(`Matcher`, 'flux/attributes/matcher');
@@ -230,7 +230,7 @@ lazyLoad(`SystemStartService`, 'system-start-service');
 
 // Testing
 lazyLoadWithGetter(
-  `MailspringTestUtils`,
+  `MailArTestUtils`,
   () => require('../../spec/mailspring-test-utils').default
 );
 

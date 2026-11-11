@@ -8,7 +8,6 @@ interface SubjectLineIconsProps {
   canCollapse: boolean;
   hasCollapsedItems: boolean;
 
-  onPrint: () => void;
   onPopIn: () => void;
   onPopOut: () => void;
   onToggleAllExpanded: () => void;
@@ -98,21 +97,6 @@ export const SubjectLineIcons: React.FunctionComponent<SubjectLineIconsProps> = 
         />
       </div>
     )}
-    <div
-      role="button"
-      tabIndex={0}
-      aria-label={localized('Print Thread')}
-      title={localized('Print Thread')}
-      onClick={props.onPrint}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          props.onPrint();
-        }
-      }}
-    >
-      <RetinaImg name="print.png" mode={RetinaImg.Mode.ContentIsMask} aria-hidden="true" />
-    </div>
     <EmailRenderModeToggle />
     {AppEnv.isThreadWindow() ? (
       <div

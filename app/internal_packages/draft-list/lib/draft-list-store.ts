@@ -1,4 +1,4 @@
-import MailspringStore from 'mailspring-store';
+import MailArStore from 'mailspring-store';
 import {
   Rx,
   Message,
@@ -13,7 +13,7 @@ import {
 } from 'mailspring-exports';
 import { ListTabular, ListDataSource } from 'mailspring-component-kit';
 
-class DraftListStore extends MailspringStore {
+class DraftListStore extends MailArStore {
   constructor() {
     super();
     this.listenTo(FocusedPerspectiveStore, this._onPerspectiveChanged);
