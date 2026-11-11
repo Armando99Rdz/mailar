@@ -1,119 +1,73 @@
-# 💌 MailAr
+# MailAr
 
-**Mailspring is a new version of Nylas Mail maintained by one of the original authors. It's faster, leaner, and shipping today!** It replaces the JavaScript sync code in Nylas Mail with a new C++ sync engine based on [Mailcore2](https://github.com/MailCore/mailcore2). It uses roughly half the RAM and CPU of Nylas Mail and idles with almost zero "CPU Wakes", which translates to great battery life. It also has an entirely revamped composer and other great new features.
+MailAr is a fork of [Mailspring](https://github.com/foundry376/mailspring). Mailspring is already an excellent open-source mail client: a fast Electron and React app with a local C++ sync engine. This fork keeps that foundation and adds the pieces that were missing for day-to-day use on macOS: a menu-bar inbox, a calmer interface, and a shorter set of controls.
 
-Mailspring's UI is open source (GPLv3) and written in TypeScript with [Electron](https://github.com/atom/electron) and [React](https://facebook.github.io/react/) - it's built on a plugin architecture and was designed to be easy to extend. Check out [CONTRIBUTING.md](https://github.com/Foundry376/Mailspring/blob/master/CONTRIBUTING.md) to get started!
+The sync engine still runs on your computer. Mail does not pass through a MailAr server.
 
-Mailspring's sync engine is spawned by the Electron application and runs locally on your computer. [It is open source (GPLv3) and written in C++ and C.](https://github.com/Foundry376/Mailspring-Sync) For convenience, however, when you set up your development environment, Mailspring uses the latest version of the sync engine we've shipped for your platform so you don't need to pull sources or install its compile-time dependencies.
+## What changed
 
-![Mailspring Screenshot](https://github.com/Foundry376/Mailspring/raw/master/screenshots/hero_graphic_mac%402x.png)
+### macOS menu-bar tray
 
-## Features
+The status item opens a small panel of unread mail from the last 31 days.
 
-Mailspring comes packed with powerful features like Unified Inbox, Snooze, Send
-Later, Mail Rules, Templates and more. Mailspring Pro, which you can unlock
-with a monthly subscription, adds even more features for people who send a ton
-of email: link tracking, read receipts, mailbox analytics, contact and company
-profiles. **All of these features run in the client - Mailspring does not send
-your email credentials to the cloud.** For a full list of features, check out
-[getmailspring.com](https://getmailspring.com/).
+- A title, then each message on its own block: sender name and email on one line, subject, and one line of the body. Long lines truncate with `...`.
+- The time uses the same short format as the inbox (`11:19 AM`, `Tue 5:10 PM`), not a full timestamp.
+- Avatars are soft gradient circles.
+- Choosing a row opens the app on that thread.
+- The icon shows an unread count.
+- Open Inbox, New Message, Preferences, and Quit stay at the bottom.
+- The panel uses the macOS menu material (blur and translucency) and the system font.
 
-## Download Mailspring
+Windows and Linux keep Mailspring’s original status-item menu.
 
-You can download compiled versions of Mailspring for Windows, Mac OS X, and
-Linux (deb, rpm and snap) from
-[https://getmailspring.com/download](https://getmailspring.com/download).
+![Menu-bar unread mail on macOS](screenshots/tray_menu_macos.png)
 
-## Getting Help
+### macOS interface
 
-You can find community-based help and discussion with other Mailspring users on our
-[Discourse community](https://community.getmailspring.com/).
+On Apple, the interface follows the system more closely.
 
-## Contributing
+- The UI, including message text, uses the system font. Windows and Linux keep the original typeface.
+- The window is translucent, with a rounded card, a pill Compose button, and the accent color `#0485f7`.
+- The three-column layout is folders, the message list, and the open message. The reading column is opaque so the subject and controls stay clear.
+- Hovering a row no longer lays a translucent veil over the subject.
+- Avatars in the list, contacts, and the tray are gradient circles without initials.
+- Rich-text buttons in the composer (bold, italic, lists, link, and the rest) render again.
 
-Mailspring is entirely open-source. Pull requests and contributions are
-welcome! There are three ways to contribute: building a plugin, building a
-theme, and submitting pull requests to the project itself. When you're getting
-started, you may want to join our
-[Discourse](https://community.getmailspring.com/) so you can ask questions and
-learn from other people doing development.
+![Three-column inbox](screenshots/home_divided_layout.png)
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+### Removed
 
-### Running Mailspring from Source
+A few controls that are not part of everyday mail were taken out:
 
-To install all dependencies and run Mailspring from its source code,
-run the following commands from the root directory of the Mailspring repository:
+- Print the current thread
+- View the message source
+- Log data and copy debug info from the message menu
 
-```
+Receiving, reading, searching, composing, replying, folders, the calendar, and preferences stay.
+
+## Run from source
+
+From the repository root:
+
+```bash
 npm install
 npm start
 ```
 
-On Apple Silicon, run this from a native arm64 terminal. `npm install` downloads an arm64 Electron and compiles native modules such as `better-sqlite3` for the same architecture. Setting `npm_config_arch=x64` downloads an Intel Electron while those modules stay arm64, and the app then fails to load its database.
+On Apple Silicon, use a native arm64 terminal. `npm install` downloads an arm64 Electron and compiles native modules such as `better-sqlite3` for that architecture. Setting `npm_config_arch=x64` downloads an Intel Electron while those modules stay arm64, and the app then fails to load its database.
 
-You can attach command line parameters by separating them using a double hyphen:
+Extra arguments go after `--`:
 
-```
+```bash
 npm start -- --help
 ```
 
-### Building Mailspring
+To build a packaged app:
 
-To build Mailspring, you need to run the following command from the root directory
-of the Mailspring repository:
-
-```
-npm run-script build
+```bash
+npm run build
 ```
 
-### Building A Plugin
+## License
 
-Plugins lie at the heart of Mailspring and give it its powerful features.
-Building your own plugins allows you to integrate the app with other tools,
-experiment with new workflows, and more. Follow the [Getting Started
-guide](https://Foundry376.github.io/Mailspring/) to write your first plugin in
-five minutes.
-
-- To create your own theme, check out the
-  [Mailspring-Theme-Starter](https://github.com/Foundry376/Mailspring-Theme-Starter).
-
-- To create your own plugin, check out the
-  [Mailspring-Plugin-Starter](https://github.com/Foundry376/Mailspring-Plugin-Starter).
-
-A plugin "store" like the Chrome Web Store is coming soon, and will make it
-easy for other users to discover plugins you create. (Right now, users need to
-"sideload" the plugins into the app by downloading them and copying them into
-place.)
-
-You can share and browse Mailspring Plugins, and discuss plugin development
-with other developers, on our
-[Discourse](https://community.getmailspring.com/).
-
-### Building a Theme
-
-The Mailspring user interface is styled using CSS, which means it's easy to
-modify and extend. Mailspring comes stock with a few beautiful themes, and
-there are many more which have been built by community developers. To start
-creating a theme, [clone the theme starter](https://github.com/Foundry376/Mailspring-Theme-Starter)!
-
-If you are updating an existing Nylas theme for Mailspring here is a
-[step by step tutorial](https://community.getmailspring.com/t/updating-an-n1-nylas-mail-theme-for-mailspring/195).
-Notice: as part of the update process you will probably need to [import mailspring base variables](https://github.com/Foundry376/Mailspring/issues/326#issuecomment-343757775).
-
-You can share and browse Mailspring Themes, and discuss theme development with other developers, on our [Discourse](https://community.getmailspring.com/).
-
-### Localizing / Translating
-
-Mailspring (1.5.0 and above) supports localization. If you're a fluent speaker of
-another language, we'd love your help improving translations. Check out the
-[LOCALIZATION](https://github.com/Foundry376/Mailspring/blob/master/LOCALIZATION.md)
-guide for more information. You can discuss localization and translation with
-other developers on our [Discourse](https://community.getmailspring.com/).
-
-### Contributing to Mailspring Core
-
-Pull requests are always welcome - check out
-[CONTRIBUTING](https://github.com/Foundry376/Mailspring/blob/master/CONTRIBUTING.md)
-for more information about setting up the development environment, running
-tests locally, and submitting pull requests.
+MailAr is free software, released under the [GNU General Public License v3.0](LICENSE.md), the same license as Mailspring. You can use, modify, and share it under those terms. The [sync engine](https://github.com/Foundry376/Mailspring-Sync) is also GPL-3.0.
