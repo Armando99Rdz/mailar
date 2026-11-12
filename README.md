@@ -4,36 +4,15 @@ MailAr is a fork of [Mailspring](https://github.com/foundry376/mailspring). Mail
 
 The sync engine still runs on your computer. Mail does not pass through a MailAr server.
 
+![Presentation](screenshots/presentation.png)
+
 ## What changed
 
-### macOS menu-bar tray
-
-The status item opens a small panel of unread mail from the last 31 days.
-
-- A title, then each message on its own block: sender name and email on one line, subject, and one line of the body. Long lines truncate with `...`.
-- The time uses the same short format as the inbox (`11:19 AM`, `Tue 5:10 PM`), not a full timestamp.
-- Avatars are soft gradient circles.
-- Choosing a row opens the app on that thread.
-- The icon shows an unread count.
-- Open Inbox, New Message, Preferences, and Quit stay at the bottom.
-- The panel uses the macOS menu material (blur and translucency) and the system font.
-
-Windows and Linux keep Mailspring’s original status-item menu.
+- macOS menu-bar tray with unread mail counter. Displays last unread mails from the last 31 days using avatars, time, subject & sender. Also you have existsing buttons like Open Inbox, New Message and Preferences, and Quit stay at the bottom.. The panel uses the macOS menu material (blur and translucency) and the system font.
+- The UI the Apple system more closely. The window is translucent, rounded corners, and accent color changed. The contact avatars are  gradient circles.
 
 ![Menu-bar unread mail on macOS](screenshots/tray_menu_macos.png)
 
-### macOS interface
-
-On Apple, the interface follows the system more closely.
-
-- The UI, including message text, uses the system font. Windows and Linux keep the original typeface.
-- The window is translucent, with a rounded card, a pill Compose button, and the accent color `#0485f7`.
-- The three-column layout is folders, the message list, and the open message. The reading column is opaque so the subject and controls stay clear.
-- Hovering a row no longer lays a translucent veil over the subject.
-- Avatars in the list, contacts, and the tray are gradient circles without initials.
-- Rich-text buttons in the composer (bold, italic, lists, link, and the rest) render again.
-
-![Three-column inbox](screenshots/home_divided_layout.png)
 
 ### Removed
 
